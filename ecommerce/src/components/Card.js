@@ -1,16 +1,24 @@
 import img1 from "../assets/41PPdkP1bzL.jpg"
 
-export default function Card() {
+export default function Card({title, desc, img,}) {
+
     return (
-        <div className="card">
-            <img src={img1} alt="PS4"/>
-            <div className="card-body">
+        <div className="card text-center bg-dark ">
+            <img src={img} alt="PS4" className="img-titulo"/>
+            <div className="card-body text-light">
                 <h4 className="card-title">
-                    Video Juego 1
+                    {title}
                 </h4>
-                <p className="card-text text-secondary">
-                God of War es un videojuego de acción-aventura desarrollado por SCE Santa Monica Studio y publicado por Sony Interactive Entertainment.
+                {/*
+                    <p className="card-text text-secondary">
+                {desc}
                 </p>
+                
+                
+                */}
+                <a href="#!" className="btn btn-outline-secondary rounded-0">
+                    COMPRARLO
+                </a>
             </div>
         </div>
     )
