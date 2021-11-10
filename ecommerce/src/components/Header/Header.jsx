@@ -6,7 +6,7 @@ export default function Header() {
     <header>
         <nav className="navbar navbar-expand-md navbar-dark">
             <div className="container-fluid justify-content-center row">
-            <img className="col-xs-8 col-sm-10 col-md-3 col-lg-3 ms-2" src={logo} alt="logo" />
+            <img className="col-xs-6 col-sm-7 col-md-3 col-lg-3 ms-2" src={logo} alt="logo" />
 			<button 
 				className="navbar-toggler ms-3"
 				data-bs-toggle="collapse"
