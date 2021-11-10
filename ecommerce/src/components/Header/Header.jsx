@@ -1,4 +1,3 @@
-import "../../style/Header.css"
 import logo from "../../assets/img/logo.png"
 
 
@@ -7,7 +6,7 @@ export default function Header() {
     <header>
         <nav className="navbar navbar-expand-md navbar-dark">
             <div className="container-fluid justify-content-center row">
-            <img className="col-lg-3 col-sm-8 ms-2" src={logo} alt="logo" />
+            <img className="col-xs-8 col-sm-10 col-md-3 col-lg-3 ms-2" src={logo} alt="logo" />
 			<button 
 				className="navbar-toggler ms-3"
 				data-bs-toggle="collapse"
@@ -15,7 +14,7 @@ export default function Header() {
 			    >
 				<span className="navbar-toggler-icon" />
 			</button>
-			<div className="mt-2 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
+			<div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
 				<ul className="navbar-nav text-center" id="ul">
 					<li className="navbar-item ms-3 text-warning">
 						INICIO
@@ -31,7 +30,7 @@ export default function Header() {
 					</li>
 				</ul>
 			</div>
-			<div className="col-lg-3 col-sm-12 mt-2 move">
+			<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
 				    <input type="search" class="form-control ms-2" placeholder="Buscar..."/>
 					<i className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
