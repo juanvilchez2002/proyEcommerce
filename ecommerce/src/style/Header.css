@@ -10,3 +10,6 @@ nav{
     top: 0;
     right: 20px;
 }
+img,li,i{
+    cursor: pointer;
+}

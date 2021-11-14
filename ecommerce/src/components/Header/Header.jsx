@@ -1,40 +1,45 @@
+import "../../style/header.css"
 import logo from "../../assets/img/logo.png"
 
 
 export default function Header() {
-    return (
+
+return (
     <header>
         <nav className="navbar navbar-expand-md navbar-dark">
             <div className="container-fluid justify-content-center row">
-            <img className="col-xs-6 col-sm-7 col-md-3 col-lg-3 ms-2" src={logo} alt="logo" />
-			<button 
+                <img className="col-xs-6 col-sm-7 col-md-3 col-lg-3 ms-2" src={logo} alt="logo"/>
+			    <button 
 				className="navbar-toggler ms-3"
 				data-bs-toggle="collapse"
 				data-bs-target="#links"
 			    >
-				<span className="navbar-toggler-icon" />
-			</button>
-			<div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
-				<ul className="navbar-nav text-center" id="ul">
-					<li className="navbar-item ms-3 text-warning">
+				    <span className="navbar-toggler-icon" />
+			    </button>
+			    <div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
+				    <ul className="navbar-nav text-center">
+					    <li className="navbar-item ms-3 text-warning">
 						INICIO
-					</li>
-					<li className="navbar-item ms-3 text-white">
+					    </li>
+					    <li className="navbar-item ms-3 text-white">
 						TIENDA
-					</li>
-					<li className="navbar-item ms-3 text-white">
+					    </li>
+					    <li className="navbar-item ms-3 text-white">
 						NOTICIAS
-					</li>
-                    <li className="navbar-item ms-3 text-white">
+					    </li>
+                        <li className="navbar-item ms-3 text-white">
 						ACERCA DE
-					</li>
-				</ul>
-			</div>
-			<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
+					    </li>
+				    </ul>
+			    </div>
+				<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
 				    <input type="search" class="form-control ms-2" placeholder="Buscar..."/>
 					<i className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
-            </div>
+				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">
+			        <i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/>
+			    </div>
+			</div>
         </nav>
     </header>
     )
