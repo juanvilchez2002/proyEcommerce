@@ -1,17 +1,26 @@
 import React from 'react'
 
-export default function footer() {
+export default function Footer() {
     return (
-        <div>
-          <footer className="text-black py-4 bg-dark">
+          <footer className="text-white py-3 bg-black d-flex">
              <div className='container'>
                  <nav className="row">
-                 <ul className='col-12 col-md-3 list-unstyled'>
-                <li className='font-weigth-bold mb-4'>Siguenos</li>
-                <li className='d-flex justify-content-between'>
-                  <i className="bi bi-facebook"/>
-                  <i className="bi bi-instagram"/>
-                  <i className="bi bi-twitter"/>
+                 <ul className='d-flex col-12 col-md-3 list-unstyled align-items-center'>
+                <li className='font-weigth-bold me-4'>Siguenos:</li>
+                <li className='d-flex justify-content-between align-items-center'>
+                  <i className="bi bi-facebook me-4" style={{ 
+                       fontSize: "35px",
+                       cursor: "pointer"
+                       
+                  }}/>
+                  <i className="bi bi-instagram me-4 "style={{ 
+                       fontSize: "35px",
+                       cursor: "pointer"
+                  }}/>
+                  <i className="bi bi-twitter me-4"style={{ 
+                       fontSize: "35px",
+                       cursor: "pointer"
+                  }}/>
                 </li>
                  </ul> 
 
@@ -21,7 +30,6 @@ export default function footer() {
       
        </footer> 
     
-     </div>
     )
 }
 
