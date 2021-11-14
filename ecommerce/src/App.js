@@ -8,9 +8,9 @@ function App() {
       
 
         <div className="d-flex align-items-center justify-content-center">
-          <Producto/>
+          <Cards/>
         </div>
-      
+        
   )
 }
 
