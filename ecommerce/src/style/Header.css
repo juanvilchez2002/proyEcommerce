@@ -1,6 +1,8 @@
-nav{
+body{
+    background-color: rgba(0, 0, 0, 0.72);
+}
+.nav{
     background-color: black;
-    box-shadow: 0px 5px 5px gray;
 }
 .move{
     position: relative;
@@ -10,6 +12,6 @@ nav{
     top: 0;
     right: 20px;
 }
-img,li,i{
+i{
     cursor: pointer;
 }
