@@ -2,8 +2,11 @@ import Footer from "./componentes/Footer";
 
 function App() {
   return (
-    <div>
-       <Footer/>
+     <div className="page-container">
+       <div className="content-wrap">
+      
+    </div>
+       <Footer />
     </div>
   );
 }
