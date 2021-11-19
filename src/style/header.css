@@ -1,0 +1,15 @@
+nav{
+    background-color: black;
+    box-shadow: 0px 5px 5px gray;
+}
+.move{
+    position: relative;
+}
+.lupa{
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+img,li,i{
+    cursor: pointer;
+}
