@@ -18,7 +18,7 @@ return (
 			    </button>
 			    <div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
 				    <ul className="navbar-nav text-center">
-					    <li className="navbar-item ms-3 text-warning">
+					    <li className="navbar-item ms-3 text-white">
 						INICIO
 					    </li>
 					    <li className="navbar-item ms-3 text-white">
