@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 export default function Header() {
 
 return (
-    <header>
+    <header className="sticky-top">
         <nav className="navbar navbar-expand-md navbar-dark">
             <div className="container-fluid justify-content-center row">
                 <img className="col-xs-6 col-sm-7 col-md-3 col-lg-3 ms-2" src={logo} alt="logo"/>
