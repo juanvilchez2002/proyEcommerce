@@ -1,5 +1,6 @@
 import "../../style/header.css"
 import logo from "../../assets/img/logo.png"
+import { Link } from "react-router-dom"
 
 
 export default function Header() {
@@ -18,22 +19,22 @@ return (
 			    </button>
 			    <div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
 				    <ul className="navbar-nav text-center">
-					    <li className="navbar-item ms-3 text-white">
+					    <Link to="/" className="navbar-item ms-3 Link">
 						INICIO
-					    </li>
-					    <li className="navbar-item ms-3 text-white">
+					    </Link>
+					    <Link to="/tienda" className="navbar-item ms-3 Link">
 						TIENDA
-					    </li>
-					    <li className="navbar-item ms-3 text-white">
+					    </Link>
+					    <Link to="/noticias" className="navbar-item ms-3 Link">
 						NOTICIAS
-					    </li>
-                        <li className="navbar-item ms-3 text-white">
+					    </Link>
+                        <Link to="/acercade" className="navbar-item ms-3 Link">
 						ACERCA DE
-					    </li>
+					    </Link>
 				    </ul>
 			    </div>
 				<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
-				    <input type="search" class="form-control ms-2" placeholder="Buscar..."/>
+				    <input type="search" className="form-control ms-2" placeholder="Buscar..."/>
 					<i className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
 				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">

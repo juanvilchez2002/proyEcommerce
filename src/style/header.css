@@ -12,3 +12,10 @@ nav{
 img,li,i{
     cursor: pointer;
 }
+.Link{
+    text-decoration: none;
+    color: white;
+}
+.Link:hover{
+    color:yellow;
+}
