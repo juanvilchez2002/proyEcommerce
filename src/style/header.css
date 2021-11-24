@@ -1,4 +1,4 @@
-nav{
+.nav{
     background-color: black;
 }
 .move{
@@ -9,7 +9,7 @@ nav{
     top: 0;
     right: 20px;
 }
-img,li,i{
+img,i{
     cursor: pointer;
 }
 .Link{
