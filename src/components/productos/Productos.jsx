@@ -47,7 +47,7 @@ export default function Productos() {
                 setTitulo("Todos los juegos")
             }}>Todos</h5>
             {categorias.map((cat,i) => (
-                <h5 className="mt-3 cats" key={i} onClick={() => {
+                <h5 className="mt-3 small cats" key={i} onClick={() => {
                     filtroCat(cat.id)
                     setTitulo(cat.nom_cat)
                 }}>{cat.nom_cat}</h5>

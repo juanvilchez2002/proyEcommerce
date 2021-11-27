@@ -38,7 +38,9 @@ return (
 					<i className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
 				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">
-			        <i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/>
+					<Link to="/carrito" className="navbar-item ms-3 Link">
+						<i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/>
+					</Link>
 			    </div>
 			</div>
         </nav>

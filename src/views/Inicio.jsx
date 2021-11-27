@@ -5,7 +5,7 @@ export default function Inicio() {
     return (
         <div>
             <CarouselApp />
-            <div className="d-flex align-items-center justify-content-center">
+            <div className="d-flex align-items-center justify-content-center mt-4">
                 <Cards />
             </div>
         </div>
