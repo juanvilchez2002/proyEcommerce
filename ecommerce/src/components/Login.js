@@ -35,7 +35,7 @@ export default function Login() {
             showConfirmButton: false,
             timer:2000
           })
-          navigate("/listaproductos")
+          navigate("/listajuegos")
        }else{
             Swal.fire({
                 icon: 'error',
