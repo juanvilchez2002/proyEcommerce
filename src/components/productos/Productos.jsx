@@ -51,8 +51,8 @@ export default function Productos() {
             {categorias.map((cat,i) => (
                 <h5 className="mt-1 cats" key={i} onClick={() => {
                     filtroCat(cat.id)
-                    setTitulo(cat.nom_cat)
-                }}>{cat.nom_cat}</h5>
+                    setTitulo(cat.nombre)
+                }}>{cat.nombre}</h5>
             ))}
             </div>
             </div>

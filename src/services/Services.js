@@ -30,4 +30,14 @@ const obtenerProductosPorPagina = async (pagina = 1 ,limite = 5) => {
     }
 }
 
-export {obtenerProductos,obtenerCategorias,obtenerProductosPorPagina}
+const obtenerProductosPorId = async (id) => {
+    const URL = "https://6195c89174c1bd00176c6e8e.mockapi.io/juego"
+    try {
+        const {data} = await axios.get(`${URL}/${id}`)
+           return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export {obtenerProductos,obtenerCategorias,obtenerProductosPorPagina,obtenerProductosPorId}
