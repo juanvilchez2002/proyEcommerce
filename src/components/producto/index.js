@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 
 import { CarritoContext } from "../../context/carrito";
 
+import { Link } from "react-router-dom";
+
 export default function Producto({ prod }) {
   const { anadirACarrito } = useContext(CarritoContext);
 
@@ -36,14 +38,22 @@ export default function Producto({ prod }) {
     <div className="card text-center bg-dark ">
       <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo" />
       <div className="card-body text-light card-cont">
-        <h4 className="card-title">{prod.nom_juego}</h4>
+        <h4 className="small">
+          <Link
+            style={{ textDecoration: "none" }}
+            className="small"
+            to={`/detalle/${prod.id}`}
+          >
+            {prod.nom_juego}
+          </Link>
+        </h4>
         <p className="small text-secondary">
           {recortarDescripcion(prod.desc_juego)}
         </p>
         <div className="d-flex justify-content-center">
           <a
             href=""
-            className="btn btn-outline-secondary rounded-0"
+            className="btn btn-outline-primary rounded-0"
             onClick={(e) => anadirACarritoContext(e)}
           >
             COMPRAR
