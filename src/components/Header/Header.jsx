@@ -1,9 +1,33 @@
 import "../../style/header.css"
 import logo from "../../assets/img/logo.png"
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
+import { useRef } from "react"
+import { useState } from "react"
 
 
 export default function Header() {
+
+	const [input,setInput] = useState("")
+	const buscar = useRef()
+	const navigate = useNavigate()
+
+	const eventoClick = () => {
+		navigate(`/${buscar.current.value}`)
+		setInput("")
+		window.location.reload()
+	}
+
+	const eventoEnter = (e) => {
+		if(e.key === "Enter"){
+		navigate(`/${buscar.current.value}`)
+		setInput("")
+		window.location.reload()
+	}
+	}
+
+	const cambios = () => {
+		setInput(buscar.current.value)
+	}
 
 return (
     <header className="sticky-top">
@@ -34,8 +58,8 @@ return (
 				    </ul>
 			    </div>
 				<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
-				    <input type="search" className="form-control ms-2" placeholder="Buscar..."/>
-					<i className="bi bi-search lupa mt-2 ml-3"/>
+				    <input type="text" onKeyUp={eventoEnter} value={input} onChange={cambios} ref={buscar} className="form-control ms-2" placeholder="Buscar juego..."/>
+					<i onClick={eventoClick} className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
 				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">
 					<Link to="/carrito" className="navbar-item ms-3 Link">

@@ -35,7 +35,7 @@ export default function Productos() {
     <div className="container-fluid text-center cat">
         <div>
             <div>
-            <h4 className="mt-2 text-primary">Categorias:</h4>
+            <h4 className="text-primary">Categorias:</h4>
             </div>
             <div className="navbar navbar-expand-md navbar-dark justify-content-center">
             <button 
@@ -61,7 +61,7 @@ export default function Productos() {
            
         </div>
         <div className="row d-flex justify-content-center">
-            <h4 className="mt-2 text-primary">{titulo}</h4>
+            <h4 className="text-primary">{titulo}</h4>
             {productos.map((prod,i) => (
                 <div className ="col-sm-10 col-md-6 col-lg-4" key={i}>
                    <Producto prod={prod} />

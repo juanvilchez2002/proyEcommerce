@@ -39,25 +39,25 @@ export default function Producto({ prod }) {
       <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo" />
       <div className="card-body text-light card-cont">
         <h4 className="small">
-          <Link
+          <p
             style={{ textDecoration: "none" }}
             className="small"
             to={`/detalle/${prod.id}`}
           >
             {prod.nom_juego}
-          </Link>
+          </p>
         </h4>
         <p className="small text-secondary">
           {recortarDescripcion(prod.desc_juego)}
         </p>
         <div className="d-flex justify-content-center">
-          <a
+          <p
             href=""
             className="btn btn-outline-primary rounded-0"
             onClick={(e) => anadirACarritoContext(e)}
           >
             COMPRAR
-          </a>
+          </p>
           <h3 className="ms-4 text-secondary">
             S/ {prod.precio_juego.toFixed(2)}
           </h3>

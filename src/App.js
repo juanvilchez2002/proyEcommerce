@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import ProductoId from "./components/detalledeProducto/ProductoId";
+import Busqueda from "./components/busqueda/Busqueda"
+
 
 import Header from "./components/Header/Header";
 import Inicio from "./views/Inicio";
@@ -29,6 +31,7 @@ export default function App() {
           <Route path="/acercade" element={<AcercaDe />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/detalle/:id" element={<ProductoId />} />
+          <Route path="/:busqueda" element={<Busqueda />} />
         </Routes>
         <Footer />
 

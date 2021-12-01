@@ -44,7 +44,7 @@ import ReactImageMagnify from "react-image-magnify";
                 <div className="row my-3 d-flex justify-content-center">
                     {producto ? (
                         <>
-                            <div style={{width:"35%"}} className="col-12 col-md-6">
+                            <div id="detalle-view" className="col-12 col-md-6 detalle-view">
                                 <ReactImageMagnify
                                     {...{
                                         smallImage: {
