@@ -53,7 +53,7 @@ export default function Login() {
         <div className="login-contenedor">
             <div className="login-contenido">
                 <div className="titulo-contenedor">
-                    ¡Bienvenido!
+                    ¡Bienvenido Administrador!
                 </div>
                     <label className="label-contenedor" >
                         Usuario:                    

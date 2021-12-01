@@ -1,9 +1,11 @@
 import Cards from "./components/Cards";
 import "bootstrap/dist/css/bootstrap.min.css";//importando libreria de BootStrap
-import "./css/styles.css"
+import "./css/styles.css";
 import {BrowserRouter as Routers, Route, Routes} from "react-router-dom";
-import ListaJuegosView from "./views/ListaJuegosView"
+import VentasJuegosView from "./views/VentasJuegosView";
+import ListaJuegosView from "./views/ListaJuegosView";
 import Login from "./components/Login";
+import AdminView from "./views/AdminView";
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
       }
     <Routes>
       <Route path="/" element={<Cards/>}/>
-      <Route path="/login" element={<Login/>}/>      
-      <Route path="/listajuegos" element={<ListaJuegosView/>}/>
+      <Route path="/login" element={<Login/>}/>     
+      <Route path="/admin" element={<AdminView/>}/>   
+      <Route path="/listajuegos" element={<ListaJuegosView/>}/>            
+      <Route path="/ventasJuegos" element={<VentasJuegosView/>}/>
     </Routes>
   </Routers>
         

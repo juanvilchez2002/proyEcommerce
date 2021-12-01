@@ -48,7 +48,7 @@ export default function ListaProductosView() {
 
     
     return (
-        <div className="bg-light.bg-gradient">
+        <div className="bg-dark bg-gradient">
             {
                     /**
                      * para mostrar el banner de la pagina
@@ -65,23 +65,23 @@ export default function ListaProductosView() {
                     backgroundRepeat:"no-repeat"
                 }}
             >
-                <h2 className="fw-bold container" style={{color:"black"}}>
+                <h2 className="fw-bold container " style={{color:"black"}}>
                     {/* si categoria existe, pregunta por la propiedad nombre */}
-                                        Listado de Productos
+                                        Listado de Juegos
                 </h2>
             </div>
 
-        <div className="container ">         
+        <div className="container bg-light">         
 
             <div className="row">
-                <div className="col-sm-2 col-md-2">
+                <div className="col-sm-3 col-md-3 ">
                     {
                         //realizamos los filtros de categorias
                     }
-                    <h3 className="text-center mt-2">
-                        Categorias
-                    </h3>
-                    <div className="d-flex flex-md-column  flex-sm-column jjustify-content-start">
+                    <h4 className="text-center mt-2 sticky-top">
+                        Categorias de Juegos
+                    </h4>
+                    <div className="d-flex flex-md-column  flex-sm-column jjustify-content-start sticky-top">
                         <button className="btn btn-outline-dark mt-2 mb-2" onClick={()=>{
                             setJuego(juegoOri)
                         }}>
@@ -106,15 +106,15 @@ export default function ListaProductosView() {
                     </div>
 
                 </div>
-                <div className="col-sm-10 col-md-10">
-                    <table className="table table-hover table-borderless">
-                        <thead className="text-center    ">
-                            <tr>
+                <div className="col-sm-9 col-md-9 ">
+                    <table className="table table-hover table-borderless ">
+                        <thead >
+                            <tr className="text-center sticky-top">
                                 <th>
-                                    Juego
+                                    Nombre del Juego
                                 </th>
                                 <th>
-                                    Cantidad
+                                    Stock
                                 </th>
                                 <th>
                                     Precio
@@ -129,7 +129,7 @@ export default function ListaProductosView() {
                             juegos.map(
                                 (
                                     {nom_juego, qty_juego, precio_juego, categoria_id, id}, i)=>(
-                                <tr key={i}>
+                                <tr key={i} className="text-center">
                                     <td>
                                         {nom_juego}
                                     </td>
