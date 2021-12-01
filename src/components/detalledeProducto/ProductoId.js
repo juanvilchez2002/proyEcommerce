@@ -1,6 +1,6 @@
 import { obtenerProductosPorId, obtenerCategorias } from "../../services/Services"; 
-import { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useState, useEffect} from "react";
+import { useParams } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
 
   
@@ -10,102 +10,61 @@ import ReactImageMagnify from "react-image-magnify";
     const [cantidad, setCantidad] = useState(1);
     const [categoria, setCategoria] = useState("");
 
-    const { id } = useParams(); //un objeto con todos los parámetros de la URL
-
-    const navigate = useNavigate();
-
-    // const { anadirACarrito } = useContext(CarritoContext);
+    const { id } = useParams()
 
     const getProducto = async () => {
         try {
             const prodObtenido = await obtenerProductosPorId(id);
             const catObtenidas = await obtenerCategorias();
-            const catProducto = catObtenidas.find((cat) => cat.id === prodObtenido.categoria_id);
+            const catProducto = catObtenidas.find((cat) => cat.id == prodObtenido.categoria_id);
             setProducto(prodObtenido);
-            setCategoria(catProducto); //todo el objeto de la categoria, id, nombre, descripcion e imagen
+            setCategoria(catProducto)
         } catch (error) {
-            console.log(error);
+            throw error
         }
     };
 
     const modificarCantidad = (numero) => {
         if (cantidad + numero === 0 || cantidad + numero === 11) {
-            return; //corta la ejecución
+            return
         }
         setCantidad(cantidad + numero);
-    };
-
-    // const anadirACarritoContext = () => {
-    //     const { id, nombre, precio } = producto;
-    //     /**   {   id: producto.id,
-	// 		 nombre: producto.nombre,
-	// 		precio: producto.precio,
-	// 		cantidad: cantidad,
-	// 		}; */
-    //     const nuevoProducto = {
-    //         id,
-    //         nombre,
-    //         precio,
-    //         cantidad,
-    //     };
-    //     anadirACarrito(nuevoProducto);
-    // };
-
-    // const ejecutarComprarAhora = () => {
-    //     anadirACarritoContext();
-    //     navigate("/checkout");
-    // };
+    }
 
     useEffect(() => {
         getProducto();
     }, []);
 
-
-
       return (
               <>
-            <div
-                className="title-product py-5 mb-5"
-                style={{
-                    backgroundImage: `url('${categoria.imagen}')`,
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                }}
-            >
-                <h2 className="fw-bold container">
-                    {/* si categoria existe, pregunta por la propiedad nombre */}
-                    {categoria?.nombre} - {producto?.nombre}
-                </h2>
-            </div>
+              <div className="text-center my-3 mb-4 text-primary">
+                  <h2>{categoria?.nombre} - {producto?.nom_juego}</h2>
+              </div>
             <div className="container">
-                {/* en muchos casos es necesario y recomendable validar si algo es undefined o null */}
-                <div className="row my-3">
-                    {/* si producto no es null, undefined o algún valor falsy, muestro el producto*/}
+                <div className="row my-3 d-flex justify-content-center">
                     {producto ? (
                         <>
-                            <div className="col-12 col-md-6">
-                                {/* cambiar imagen */}
-                                {/* <img src={producto.imagen} alt={producto.nombre} className="img-fluid" /> */}
+                            <div style={{width:"35%"}} className="col-12 col-md-6">
                                 <ReactImageMagnify
                                     {...{
                                         smallImage: {
-                                            alt: producto.nombre,
+                                            alt: producto.nom_juego,
                                             isFluidWidth: true,
-                                            src: producto.imagen,
+                                            src: producto.img_juego,
                                         },
                                         largeImage: {
-                                            src: producto.imagen,
-                                            width: 1600,
-                                            height: 1200,
+                                            src: producto.img_juego,
+                                            width: 1080,
+                                            height: 720,
                                         },
                                     }}
                                 />
                             </div>
                             <div className="col-12 col-md-6">
-                                <h4>{producto.nombre}</h4>
-                                <h3>S/ {producto.precio}</h3>
+                                <h4>{producto.nom_juego}</h4>
+                                <h3>S/ {producto.precio_juego}</h3>
                                 <hr />
-                                <p>{producto.descripcion}</p>
+                                <p>{producto.desc_juego}</p>
                                 <div className="d-flex">
                                     <button
                                         className="btn btn-dark"
@@ -124,6 +83,7 @@ import ReactImageMagnify from "react-image-magnify";
                                     >
                                         <i className="fas fa-plus"></i>
                                     </button>
+                                    <br/>
                                     <button className="btn btn-outline-dark ms-3" >
                                         <i className="fas fa-cart-plus"></i> Añadir a carrito
                                     </button>
