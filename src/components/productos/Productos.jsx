@@ -1,6 +1,7 @@
 import { obtenerProductos,obtenerCategorias } from "../../services/Services"
 import { useEffect, useState } from "react"
 import "../../style/productos.css"
+import { Link } from "react-router-dom"
 
 export default function Productos() {
     const [productoReal,setProductoReal] = useState([])
@@ -61,6 +62,8 @@ export default function Productos() {
         <div className="row d-flex justify-content-center">
             <h4 className="mt-2 text-primary">{titulo}</h4>
             {productos.map((prod,i) => (
+                <Link to="/detalle/${prod.id}" key={i}>
+                    
                 <div className ="col-sm-10 col-md-6 col-lg-4" key={i}>
                     <div className="card text-center bg-dark ">
                         <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo"/>
@@ -80,6 +83,7 @@ export default function Productos() {
                         </div>
                     </div>
                 </div>
+                </Link>
             ))}
         </div>
     </div>
