@@ -28,6 +28,7 @@ export default function App() {
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/acercade" element={<AcercaDe />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/detalle/:id" element={<ProductoId />} />
         </Routes>
         <Footer />
 

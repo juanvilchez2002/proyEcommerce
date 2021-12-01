@@ -35,7 +35,7 @@ export default function Producto({ prod }) {
   };
 
   return (
-    <div className="card text-center bg-dark ">
+    <Link style={{ textDecoration: "none" }} to={`/detalle/${prod.id}`} className="card text-center bg-dark ">
       <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo" />
       <div className="card-body text-light card-cont">
         <h4 className="small">
@@ -63,6 +63,6 @@ export default function Producto({ prod }) {
           </h3>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
