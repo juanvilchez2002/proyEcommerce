@@ -1,25 +1,33 @@
-import Card from "./Card";
-import "bootstrap/dist/css/bootstrap.min.css";//importando libreria de BootStrap
-import lista_img from "../data/data_img"
+import { useEffect, useState } from "react";
+import { obtenerProductos, obtenerCategorias } from "../services/Services";
+
+import Producto from "./producto";
 
 export default function Cards() {
-    
-    return (
-        <div className="container d-flex justify-content-center align-items-center">
-            <div className="row">
-                {
-                    lista_img.map((card,i) =>(
-                        <div className="col-md-4" key={i}>
-                            <Card 
-                                title={card.title}
-                                desc={card.descrp}
-                                img={card.img}
-                            />
-                        </div>
-                    ))
-                }
-            </div>
-            
-        </div>
-    )
+  const [productos, setProductos] = useState([]);
+
+  const getData = async () => {
+    try {
+      const prodObtenidos = await obtenerProductos();
+      setProductos(prodObtenidos);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <div className="container d-flex justify-content-center align-items-center">
+      <div className="row">
+        {productos.map((prod, i) => (
+          <div className="col-md-4" key={i}>
+            <Producto prod={prod} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

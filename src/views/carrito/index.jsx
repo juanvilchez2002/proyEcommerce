@@ -1,55 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { Link } from "react-router-dom"
 
+import { toast } from "react-toastify";
+
 import { formatoAPrecio } from '../../utilidades/set-precio'
+
+import { CarritoContext } from "../../context/carrito";
 
 import styles from './styles.module.scss'
 
 export default function Carrito() {
-    const [carrito, setCarrito] = useState([
-        {
-            id: 1,
-            producto: {
-                id: 5,
-                nombre: 'Videojuego de acción',
-                descripcion: 'Videojuego de acción (Desc.)',
-                precioReal: 5,
-                precioDescuento: 3,
-                imagen: 'https://firebasestorage.googleapis.com/v0/b/proyg5-2021.appspot.com/o/proyEcommerce%2F1_p.png?alt=media&token=044cfa88-5608-43ff-8573-174feee3bcbb'
-            },
-            cantidad: 3
-        },
-        {
-            id: 2,
-            producto: {
-                id: 3,
-                nombre: 'Videojuego de aventura',
-                descripcion: 'Videojuego de aventura (Desc.)',
-                precioReal: 10,
-                precioDescuento: 5,
-                imagen: 'https://firebasestorage.googleapis.com/v0/b/proyg5-2021.appspot.com/o/proyEcommerce%2F2_p.png?alt=media&token=80cdcbc5-df3e-4860-bd6a-a16699fb9460'
-            },
-            cantidad: 5
-        },
-        {
-            id: 3,
-            producto: {
-                id: 5,
-                nombre: 'Videojuego de estrategia',
-                descripcion: 'Videojuego de estrategia (Desc.)',
-                precioReal: 5,
-                precioDescuento: null,
-                imagen: 'https://firebasestorage.googleapis.com/v0/b/proyg5-2021.appspot.com/o/proyEcommerce%2F4_p.png?alt=media&token=3a09fd56-94d6-4d75-8b87-f7435fc3da64'
-            },
-            cantidad: 3
-        }
-    ])
+    const { carrito, limpiarCarrito } = useContext(CarritoContext);
+    const [subTotal, setSubTotal] = useState(0)
+ 
+    const { eliminarProducto } = useContext(CarritoContext);
+
+    useEffect(() => {
+        let result = 0
+
+        carrito.forEach((item) => {
+            result = result + (item.cantidad * item.producto.precio_juego)
+        });
+
+        setSubTotal(result)
+      }, [carrito])
+
+    const eliminarDeCarrito = (index) => {
+        eliminarProducto(index)
+
+        toast.warn('Producto eliminado', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+    }
 
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="col-12 pt-0">
-                    <h2 className="subtitulo-general">Carrito <span className="text-muted">(3 productos)</span></h2>
+                    <h2 className="subtitulo-general">Carrito <span className="text-muted">(3 productos) </span></h2>
 
                     {/* Producto */}
                     <section>
@@ -60,15 +54,15 @@ export default function Carrito() {
                                         return  (
                                             <div className={`${styles.card} row mb-5 py-3`} key={i}>
                                                 <div className="col-md-3">
-                                                    <div style={{backgroundImage: `url(${item.producto.imagen})`}} className={`${styles.cardImagen}`}>
+                                                    <div style={{backgroundImage: `url(${item.producto ? item.producto.img_juego : null})`}} className={`${styles.cardImagen}`}>
                                                         {/* <img src={item.producto.imagen} alt="" className="img-fluid" /> */}
                                                     </div>
                                                 </div>
                                                 <div className="col-md-9 text-left">
                                                     <div className="row">
                                                         <div className="col-md-9">
-                                                            <h3 className="small">{item.producto.nombre}</h3>
-                                                            <p className="small text-muted">{item.producto.descripcion}</p>
+                                                            <h3 className="small">{item.producto.nom_juego}</h3>
+                                                            <p className="small text-muted">{item.producto.desc_juego}</p>
                                                         </div> 
 
                                                         <div className="col-md-3">
@@ -78,21 +72,23 @@ export default function Carrito() {
 
                                                     <div className="row">
                                                         <div className="col">
+                                                            {/* Si existe descuento */}
                                                             <div>
                                                                 {item.producto.precioDescuento ? (<h4 className={`${styles.precio} text-danger`}>
                                                                     <span>{formatoAPrecio(item.producto.precioDescuento)}</span>
                                                                     <span className="small">(Oferta)</span>
                                                                 </h4>) : ''}
-                                                                {item.producto.precioReal && item.producto.precioDescuento ? (<h4 className={`${styles.precio}`}><span>{formatoAPrecio(item.producto.precioReal)}</span></h4>) : ''}
+                                                                {item.producto.precio_juego && item.producto.precioDescuento ? (<h4 className={`${styles.precio}`}><span>{formatoAPrecio(item.producto.precioReal)}</span></h4>) : ''}
                                                             </div>
 
-                                                            {item.producto.precioReal && !item.producto.precioDescuento ? (<h4 className={`${styles.precio}`}><span>{formatoAPrecio(item.producto.precioReal)}</span></h4>) : ''}
+                                                            {/* Si no existe descuento */}
+                                                            {item.producto.precio_juego && !item.producto.precioDescuento ? (<h4 className={`${styles.precio}`}><span>{formatoAPrecio(item.producto.precio_juego)}</span></h4>) : ''}
                                                         </div>
                                                     </div>
 
                                                     <div className="row">
                                                         <div className="col">
-                                                            <button type="button" className={`${styles.btnDelete} border-0 mt-5`}>Eliminar</button>
+                                                            <button type="button" className={`${styles.btnDelete} border-0 mt-3`} onClick={() => eliminarDeCarrito(i)}>Eliminar</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -108,7 +104,7 @@ export default function Carrito() {
 
                                             <p className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
                                                 <span className="small text-muted">Sub-total productos</span>
-                                                <span>S/ 131.27</span>
+                                                <span>{formatoAPrecio(subTotal)}</span>
                                             </p>
 
                                             <p className={`${styles.message}`}>El costo de despacho no está incluido en el precio</p>
