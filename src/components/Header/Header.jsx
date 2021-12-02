@@ -1,12 +1,12 @@
 import "../../style/header.css"
 import logo from "../../assets/img/logo.png"
 import { Link,useNavigate } from "react-router-dom"
-import { useRef } from "react"
-import { useState } from "react"
+import { useRef,useState,useContext } from "react"
+import { CarritoContext } from "../../context/carrito"
 
 
 export default function Header() {
-
+	const { carrito } = useContext(CarritoContext);
 	const [input,setInput] = useState("")
 	const buscar = useRef()
 	const navigate = useNavigate()
@@ -24,6 +24,10 @@ export default function Header() {
 		window.location.reload()
 	}
 	}
+
+	const totalCarrito = carrito.reduce((total, prod) => {
+        return total + prod.cantidad;
+    }, 0);
 
 	const cambios = () => {
 		setInput(buscar.current.value)
@@ -63,7 +67,7 @@ return (
                 </div>
 				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">
 					<Link to="/carrito" className="navbar-item ms-3 Link">
-						<i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/>
+						<span className="badge bg-black text-warning"><i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/> {totalCarrito}</span>
 					</Link>
 			    </div>
 			</div>

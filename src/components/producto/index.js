@@ -38,14 +38,14 @@ export default function Producto({ prod }) {
     <Link style={{ textDecoration: "none" }} to={`/detalle/${prod.id}`} className="card text-center bg-dark ">
       <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo" />
       <div className="card-body text-light card-cont">
-        <h4 className="small">
-          <h5
+        <h5 className="large">
+          <p
             style={{ textDecoration: "none" }}
             className="large"
           >
             {prod.nom_juego}
-          </h5>
-        </h4>
+          </p>
+        </h5>
         <p className="small text-secondary">
           {recortarDescripcion(prod.desc_juego)}
         </p>

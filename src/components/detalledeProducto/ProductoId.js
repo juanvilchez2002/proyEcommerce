@@ -1,8 +1,9 @@
 import { obtenerProductosPorId, obtenerCategorias } from "../../services/Services"; 
-import { useState, useEffect} from "react";
-import { useParams } from "react-router";
+import { toast } from "react-toastify";
+import { useState, useEffect,useContext} from "react";
+import { useParams,useNavigate } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
-
+import {CarritoContext} from "../../context/carrito"
   
   export default function ProductoId() {
 
@@ -11,6 +12,9 @@ import ReactImageMagnify from "react-image-magnify";
     const [categoria, setCategoria] = useState("");
 
     const { id } = useParams()
+
+    const navigate = useNavigate();
+    const { anadirACarrito } = useContext(CarritoContext);
 
     const getProducto = async () => {
         try {
@@ -30,6 +34,41 @@ import ReactImageMagnify from "react-image-magnify";
         }
         setCantidad(cantidad + numero);
     }
+
+    const anadirACarritoContext = (e) => {
+        e.preventDefault();
+        toast.success("Producto agregado", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        const nuevoProducto = {
+          cantidad,
+          producto: {
+            ...producto,
+          },
+        };
+        anadirACarrito(nuevoProducto);
+      };
+
+      const anadirACarritoContext1 = () => {
+          const nuevoProducto = {
+            cantidad,
+            producto: {
+              ...producto,
+            },
+          };
+          anadirACarrito(nuevoProducto);
+      }
+
+    const ejecutarComprarAhora = () => {
+        anadirACarritoContext1();
+        navigate("/carrito");
+    };
 
     useEffect(() => {
         getProducto();
@@ -84,11 +123,11 @@ import ReactImageMagnify from "react-image-magnify";
                                         <i className="fas fa-plus"></i>
                                     </button>
                                     <br/>
-                                    <button className="btn btn-outline-dark ms-3" >
+                                    <button className="btn btn-outline-dark ms-3" onClick={anadirACarritoContext} >
                                         <i className="fas fa-cart-plus"></i> Añadir a carrito
                                     </button>
                                 </div>
-                                <button className="btn btn-outline-dark btn-lg mt-2" >
+                                <button className="btn btn-outline-dark btn-lg mt-2" onClick={ejecutarComprarAhora} >
                                     Comprar ahora!
                                 </button>
                             </div>

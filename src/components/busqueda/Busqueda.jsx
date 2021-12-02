@@ -1,6 +1,7 @@
 import { useParams,Link } from "react-router-dom"
 import { useEffect, useState} from "react"
 import { obtenerProductos1 } from "../../services/Services"
+import pageNotFound from "../../assets/img/page-not-found.png"
 
 export default function Busqueda() {
     const [productos,setProductos] = useState([])
@@ -41,7 +42,10 @@ export default function Busqueda() {
                         </div>
                     </div>
                 </Link>
-            )) : <h2 className="text-center text-secondary">No hay resultados</h2>
+            )) : <div className="mb-5 mt-3">
+                <h2 className="text-center text-dark fw-bold">Page Not Found</h2>
+                <img className="mb-5" src={pageNotFound} alt="pageNotFound" style={{width:"100%"}}/>
+            </div>
         }
             </div>
         </div>
