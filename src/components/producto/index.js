@@ -35,14 +35,15 @@ export default function Producto({ prod }) {
   };
 
   return (
-    <Link style={{ textDecoration: "none" }} to={`/detalle/${prod.id}`} className="card text-center bg-dark ">
+    <Link
+      style={{ textDecoration: "none" }}
+      to={`/detalle/${prod.id}`}
+      className="card text-center bg-dark "
+    >
       <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo" />
       <div className="card-body text-light card-cont">
         <h4 className="small">
-          <h5
-            style={{ textDecoration: "none" }}
-            className="large"
-          >
+          <h5 style={{ textDecoration: "none" }} className="large">
             {prod.nom_juego}
           </h5>
         </h4>
@@ -50,13 +51,13 @@ export default function Producto({ prod }) {
           {recortarDescripcion(prod.desc_juego)}
         </p>
         <div className="d-flex justify-content-center">
-          <p
+          <a
             href=""
             className="btn btn-outline-primary rounded-0"
             onClick={(e) => anadirACarritoContext(e)}
           >
             COMPRAR
-          </p>
+          </a>
           <h3 className="ms-4 text-secondary">
             S/ {prod.precio_juego.toFixed(2)}
           </h3>

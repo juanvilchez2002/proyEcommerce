@@ -1,11 +1,13 @@
+import { useRef, useContext } from "react"
 import "../../style/header.css"
 import logo from "../../assets/img/logo.png"
 import { Link,useNavigate } from "react-router-dom"
-import { useRef } from "react"
 import { useState } from "react"
 
+import { CarritoContext } from "../../context/carrito";
 
 export default function Header() {
+	const { carrito, limpiarCarrito } = useContext(CarritoContext);
 
 	const [input,setInput] = useState("")
 	const buscar = useRef()
@@ -62,8 +64,11 @@ return (
 					<i onClick={eventoClick} className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
 				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">
-					<Link to="/carrito" className="navbar-item ms-3 Link">
+					<Link to="/carrito" className="navbar-item ms-3 Link position-relative">
 						<i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/>
+						<span className="cantidad-carrito-header bg-info d-flex justify-content-center align-items-center">
+						{ carrito.length }
+						</span>
 					</Link>
 			    </div>
 			</div>

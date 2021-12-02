@@ -24,15 +24,17 @@ export default function App() {
     <CarritoContextProvider>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/tienda" element={<Tienda />} />
-          <Route path="/noticias" element={<Noticias />} />
-          <Route path="/acercade" element={<AcercaDe />} />
-          <Route path="/carrito" element={<Carrito />} />
-          <Route path="/detalle/:id" element={<ProductoId />} />
-          <Route path="/:busqueda" element={<Busqueda />} />
-        </Routes>
+        <div className="app">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/tienda" element={<Tienda />} />
+            <Route path="/noticias" element={<Noticias />} />
+            <Route path="/acercade" element={<AcercaDe />} />
+            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/detalle/:id" element={<ProductoId />} />
+            <Route path="/:busqueda" element={<Busqueda />} />
+          </Routes>
+        </div>
         <Footer />
 
         <ToastContainer />

@@ -42,8 +42,8 @@ export default function Carrito() {
     return (
         <div className="container mt-5">
             <div className="row">
-                <div className="col-12 pt-0">
-                    <h2 className="subtitulo-general">Carrito <span className="text-muted">(3 productos) </span></h2>
+                {carrito.length ? (                <div className="col-12 pt-0">
+                    <h2 className="subtitulo-general">Carrito <span className="text-muted">({carrito.length} productos) </span></h2>
 
                     {/* Producto */}
                     <section>
@@ -119,7 +119,19 @@ export default function Carrito() {
                             </div>
                         </div>
                     </section>
-                </div>
+                </div>) : (
+                    <div className="col-12 text-center carrito-vacio d-flex flex-column justify-content-center align-items-center">
+                        <span className="icono-carrito-vacio">
+                        <i class="fas fa-shopping-cart"></i>
+                        </span>
+                        <p>Aún no ha agregado productos a su carrito.</p>
+
+                        <Link to="/tienda" className="btn btn-primary">
+                            Ver productos &nbsp;
+                            <i class="fab fa-telegram-plane"></i>
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     )
