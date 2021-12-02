@@ -42,7 +42,6 @@ export default function Producto({ prod }) {
           <p
             style={{ textDecoration: "none" }}
             className="small"
-            to={`/detalle/${prod.id}`}
           >
             {prod.nom_juego}
           </p>

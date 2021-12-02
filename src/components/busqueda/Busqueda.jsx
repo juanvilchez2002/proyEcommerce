@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams,Link } from "react-router-dom"
 import { useEffect, useState} from "react"
 import { obtenerProductos1 } from "../../services/Services"
 
@@ -25,7 +25,7 @@ export default function Busqueda() {
             <div className="row d-flex justify-content-center">
             <h4 className="mt-2 text-primary text-center mt-3">Resultado de busqueda:</h4> 
             {productos.length > 0? productos.map((prod,i) => (
-                <div className ="col-sm-10 col-md-6 col-lg-4" key={i}>
+                <Link to={`/detalle/${prod.id}`} style={{textDecoration:"none"}} className ="col-sm-10 col-md-6 col-lg-4" key={i}>
                     <div className="card text-center bg-dark ">
                         <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo"/>
                         <div className="card-body text-light card-cont">
@@ -36,14 +36,11 @@ export default function Busqueda() {
                         {prod.desc_juego}
                         </p>
                         <div className="d-flex justify-content-center">
-                        <a href="#!" className="btn btn-outline-secondary rounded-0">
-                        COMPRAR
-                        </a>
                         <h3 className="ms-4 text-secondary">S/ {prod.precio_juego.toFixed(2)}</h3>
                         </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             )) : <h2 className="text-center text-secondary">No hay resultados</h2>
         }
             </div>
