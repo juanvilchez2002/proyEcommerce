@@ -18,6 +18,7 @@ import Noticias from "./views/Noticias";
 import AcercaDe from "./views/AcercaDe";
 import Carrito from "./views/carrito";
 import Footer from "./components/footer";
+import NotFound from "./views/NotFound";
 
 export default function App() {
   return (
@@ -25,13 +26,14 @@ export default function App() {
       <Router>
         <Header />
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Inicio />} />
           <Route path="/tienda" element={<Tienda />} />
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/acercade" element={<AcercaDe />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/detalle/:id" element={<ProductoId />} />
-          <Route path="/:busqueda" element={<Busqueda />} />
+          <Route path="/search/:busqueda" element={<Busqueda />} />
         </Routes>
         <Footer />
 

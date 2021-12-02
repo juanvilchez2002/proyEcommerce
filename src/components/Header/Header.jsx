@@ -19,7 +19,7 @@ export default function Header() {
 
 	const eventoEnter = (e) => {
 		if(e.key === "Enter"){
-		navigate(`/${buscar.current.value}`)
+		navigate(`/search/${buscar.current.value}`)
 		setInput("")
 		window.location.reload()
 	}
