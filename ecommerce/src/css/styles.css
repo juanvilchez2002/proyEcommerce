@@ -117,3 +117,13 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+/*
+    admin
+*/
+
+.admin{
+    background-image: url("../assets/admin_.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}

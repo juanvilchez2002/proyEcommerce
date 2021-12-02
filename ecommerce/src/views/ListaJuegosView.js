@@ -3,7 +3,7 @@ import imagen1 from "../assets/halo5.jpg"
 import { obtenerJuegos } from "../services/juegosServices"
 import { obtenerCategorias } from "../services/categoriaServices";
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ListaProductosView() {
 
@@ -16,6 +16,8 @@ export default function ListaProductosView() {
     //estado de categorias de juego
     const [categoria, setCategoria] =useState([])
 
+    //
+    const navigate = useNavigate()
     
 
     const getDatos = async() =>{
@@ -82,6 +84,11 @@ export default function ListaProductosView() {
                         Categorias de Juegos
                     </h4>
                     <div className="d-flex flex-md-column  flex-sm-column jjustify-content-start sticky-top">
+                        <button className="btn btn-dark mt-2 mb-2" onClick={()=>{
+                            navigate("/admin")
+                        }}>
+                            Regresar
+                        </button>
                         <button className="btn btn-outline-dark mt-2 mb-2" onClick={()=>{
                             setJuego(juegoOri)
                         }}>

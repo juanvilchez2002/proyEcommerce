@@ -3,8 +3,9 @@ import imagen1 from "../assets/last_2.png"
 import img1 from "../assets/ventas_gato.JPG"
 import { obtenerVentas } from "../services/ventasService"
 import { obtenerEstado } from "../services/estadoServices";
-import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function VentasJuegosView() {
 
@@ -17,7 +18,8 @@ export default function VentasJuegosView() {
     //estado de categorias de juego
     const [estado, setEstado] =useState([])
 
-    
+    //
+    const navigate = useNavigate()
 
     const getDatos = async() =>{
         try {
@@ -95,7 +97,7 @@ export default function VentasJuegosView() {
                     <div className="d-flex flex-md-column  flex-sm-column jjustify-content-start">
 
                         <button className="btn btn-dark mt-2 mb-2" onClick={()=>{
-                            ""
+                            navigate("/admin")
                         }}>
                             Regresar
                         </button>
@@ -123,6 +125,7 @@ export default function VentasJuegosView() {
                                 )
                             )
                         }
+                        
                     </div>
 
                     <img 
@@ -177,7 +180,7 @@ export default function VentasJuegosView() {
                                     >
                                         <Link 
                                             className="btn btn-info me-2" 
-                                            to={`/editarVentas/${id}`}
+                                            to={`/editarventas/${id}`}
                                     >
                                             Detalle Compra
                                         </Link>

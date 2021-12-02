@@ -6,6 +6,7 @@ import VentasJuegosView from "./views/VentasJuegosView";
 import ListaJuegosView from "./views/ListaJuegosView";
 import Login from "./components/Login";
 import AdminView from "./views/AdminView";
+import FormularioVentas from "./components/FormularioVentas";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
       <Route path="/login" element={<Login/>}/>     
       <Route path="/admin" element={<AdminView/>}/>   
       <Route path="/listajuegos" element={<ListaJuegosView/>}/>            
-      <Route path="/ventasJuegos" element={<VentasJuegosView/>}/>
+      <Route path="/ventasJuegos" element={<VentasJuegosView/>}/>       
+      <Route path="/editarventas/:id" element={<FormularioVentas/>}/>
     </Routes>
   </Routers>
         

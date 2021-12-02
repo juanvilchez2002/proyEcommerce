@@ -6,6 +6,7 @@ import axios from "axios";
 //variable que almacena la URL de mockapi
 const URL = `${process.env.REACT_APP_API}ventasJuegos`;
 
+//obtener las ventas de juegos
 const obtenerVentas = async() =>{
     try {
         //creamos una variable q recibira la URL
@@ -16,7 +17,20 @@ const obtenerVentas = async() =>{
     }
 };
 
+//obtener las ventas por Id y poder actualizar
+//el estado de ventas
+const obtenerJuegoPorId = async(id) =>{
+    try {
+        //concatenamos la URL con el id para obtener
+        //el producto
+        const {data} = await axios.get(`${URL}/${id}`)
+        return data
+    } catch (error) {
+        throw error;
+    }
+}
 
 export {
-    obtenerVentas
+    obtenerVentas,
+    obtenerJuegoPorId
 }
