@@ -39,12 +39,12 @@ export default function Producto({ prod }) {
       <img src={prod.img_juego} alt={prod.nom_juego} className="img-titulo" />
       <div className="card-body text-light card-cont">
         <h4 className="small">
-          <p
+          <h5
             style={{ textDecoration: "none" }}
-            className="small"
+            className="large"
           >
             {prod.nom_juego}
-          </p>
+          </h5>
         </h4>
         <p className="small text-secondary">
           {recortarDescripcion(prod.desc_juego)}
