@@ -12,7 +12,7 @@ export default function Header() {
 	const navigate = useNavigate()
 
 	const eventoClick = () => {
-		navigate(`/${buscar.current.value}`)
+		navigate(`/search/${buscar.current.value}`)
 		setInput("")
 	}
 
