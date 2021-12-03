@@ -14,14 +14,12 @@ export default function Header() {
 	const eventoClick = () => {
 		navigate(`/${buscar.current.value}`)
 		setInput("")
-		window.location.reload()
 	}
 
 	const eventoEnter = (e) => {
 		if(e.key === "Enter"){
 		navigate(`/search/${buscar.current.value}`)
 		setInput("")
-		window.location.reload()
 	}
 	}
 

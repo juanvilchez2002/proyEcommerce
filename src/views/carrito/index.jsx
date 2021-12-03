@@ -140,7 +140,7 @@ export default function Carrito() {
                                                 <span>{formatoAPrecio(subTotal)}</span>
                                             </p>
                                             <p className={`${styles.message}`}>El costo de despacho no está incluido en el precio</p>
-                                            <PayPalButton createOrder={(data, actions) => createOrder(data, actions)} onApprove={(data, actions) => onApprove(data, actions)}  />
+                                            <PayPalButton createOrder={(data, actions) =>{return createOrder(data, actions)}} onApprove={(data, actions) =>{return onApprove(data, actions)}}  />
                                         </div>
                                     </div>
                                 </div>

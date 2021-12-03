@@ -20,7 +20,7 @@ import {CarritoContext} from "../../context/carrito"
         try {
             const prodObtenido = await obtenerProductosPorId(id);
             const catObtenidas = await obtenerCategorias();
-            const catProducto = catObtenidas.find((cat) => cat.id == prodObtenido.categoria_id);
+            const catProducto = catObtenidas.find((cat) => cat.id === prodObtenido.categoria_id);
             setProducto(prodObtenido);
             setCategoria(catProducto)
         } catch (error) {

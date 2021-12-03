@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { obtenerProductos, obtenerProductosPorPagina } from "../services/Services";
+import { obtenerProductosPorPagina } from "../services/Services";
 
 import Producto from "./producto";
 
 export default function Cards() {
-  // const [productos, setProductos] = useState([]);
 
   const [anadido,setAnadido] = useState([])
   const [pagina,setPagina] = useState(1)
 
   const getData = async () => {
     try {
-
       const prodObtenidos = await obtenerProductosPorPagina(pagina)
             setAnadido([ ...anadido, ...prodObtenidos])
     } catch (error) {
@@ -20,8 +18,8 @@ export default function Cards() {
   };
 
   useEffect(() => {
-    getData();
-  }, [pagina]);
+    getData()
+  },[pagina])
 
   return (
     <div className="container d-flex justify-content-center flex-column align-items-center">

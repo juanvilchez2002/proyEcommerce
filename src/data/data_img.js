@@ -1,29 +1,33 @@
-import img1 from "../assets/41PPdkP1bzL.jpg";
-import img2 from "../assets/vj1.jpg";
-import img3 from "../assets/vj2.jpg";
+import juan from "../assets/img/Juan-Vilchez.jpg"
+import cristoper from "../assets/img/Cristoper-Yarleque.jpg"
+import erick from "../assets/img/Erick-Huamani.jpg"
+import justin from "../assets/img/Justin-Canales.png"
 
-const lista_img = [
+const developers = [
   {
     id: 1,
-    title: "Shadow of the Colosus",
-    descrp:
-      "Los relatos hablan de un       antiguo reino en el que los Colossi deambulan por magníficos paisajes. Estas criaturas, en estrecha relación con la tierra, tienen la clave para conseguir un poder místico de resurrección, que deberás obtener para devolver la vida a un ser querido.",
-    img: img1,
+    nombre:"Juan Vilchez",
+    descripcion:"Developer Front-End",
+    imagen: juan,
   },
   {
     id: 2,
-    title: "The Last of US Part II",
-    descrp:
-      "Cuando un evento violento interrumpe esa paz, Ellie se embarca en un viaje incesante para obtener justicia y llegar a un cierre. A medida que caza a los responsables uno por uno, deberá enfrentarse a las devastadoras repercusiones físicas y emocionales de sus acciones.",
-    img: img2,
+    nombre:"Justin Canales",
+    descripcion:"Developer Front-End",
+    imagen: justin,
   },
   {
     id: 3,
-    title: "God of War",
-    descrp:
-      "Kratos vuelve a ser padre. Como mentor y protector de Atreus, un hijo determinado a ganarse el respeto de su padre, se ve obligado a contener la ira que durante tanto tiempo lo ha caracterizado mientras recorre un mundo lleno de peligros junto a su muchacho.",
-    img: img3,
+    nombre: "Erick Huamani",
+    descripcion:"Developer Front-End",
+    imagen: erick,
+  },
+  {
+    id: 3,
+    nombre: "Cristoper Yarleque",
+    descripcion:"Developer Front-End",
+    imagen: cristoper,
   },
 ];
 
-export default lista_img;
+export default developers;
