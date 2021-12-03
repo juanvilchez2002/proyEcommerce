@@ -8,8 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import ProductoId from "./components/detalledeProducto/ProductoId";
-import Busqueda from "./components/busqueda/Busqueda"
-
+import Busqueda from "./components/busqueda/Busqueda";
 
 import Header from "./components/Header/Header";
 import Inicio from "./views/Inicio";
@@ -17,6 +16,7 @@ import Tienda from "./views/Tienda";
 import Noticias from "./views/Noticias";
 import AcercaDe from "./views/AcercaDe";
 import Carrito from "./views/carrito";
+import FinalizarCompra from "./views/finalizar-compra/index.jsx";
 import Footer from "./components/footer";
 
 export default function App() {
@@ -31,6 +31,7 @@ export default function App() {
             <Route path="/noticias" element={<Noticias />} />
             <Route path="/acercade" element={<AcercaDe />} />
             <Route path="/carrito" element={<Carrito />} />
+            <Route path="/finalizar-compra" element={<FinalizarCompra />} />
             <Route path="/detalle/:id" element={<ProductoId />} />
             <Route path="/:busqueda" element={<Busqueda />} />
           </Routes>

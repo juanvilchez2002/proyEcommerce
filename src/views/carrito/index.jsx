@@ -109,7 +109,7 @@ export default function Carrito() {
 
                                             <p className={`${styles.message}`}>El costo de despacho no está incluido en el precio</p>
 
-                                            <Link to="/" className="btn btn-success w-100 mt-3">
+                                            <Link to="/finalizar-compra" className="btn btn-success w-100 mt-3">
                                                 FINALIZAR COMPRA &nbsp;
                                                 <i class="fas fa-location-arrow"></i>
                                             </Link>
