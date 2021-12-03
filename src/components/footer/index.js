@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="text-white bg-black d-flex mt-5 py-3">
+    <footer className="text-white bg-black mt-5 py-3">
       <div className="container">
         <nav className="row">
           <ul className="d-flex col-12 col-md-3 list-unstyled align-items-center">
@@ -33,6 +33,7 @@ export default function Footer() {
           </ul>
         </nav>
       </div>
+      <p className="text-center">Copyright © 2021-2022 Palace Games - Todos los derechos reservados</p>
     </footer>
   );
 }

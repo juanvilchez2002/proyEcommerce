@@ -18,7 +18,7 @@ export default function Busqueda() {
 
     useEffect(() => {
         getData()
-    },[])
+    },[busqueda])
 
     return (
         <div className="container">

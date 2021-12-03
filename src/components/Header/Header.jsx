@@ -13,16 +13,14 @@ export default function Header() {
 	const navigate = useNavigate()
 
 	const eventoClick = () => {
-		navigate(`/${buscar.current.value}`)
+		navigate(`/search/${buscar.current.value}`)
 		setInput("")
-		window.location.reload()
 	}
 
 	const eventoEnter = (e) => {
 		if(e.key === "Enter"){
 		navigate(`/search/${buscar.current.value}`)
 		setInput("")
-		window.location.reload()
 	}
 	}
 
@@ -46,7 +44,7 @@ return (
 			    >
 				    <span className="navbar-toggler-icon" />
 			    </button>
-			    <div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
+			    <div className="mt-2 col-xs-8 col-sm-8 col-md-4 col-lg-4 collapse navbar-collapse" id="links">
 				    <ul className="navbar-nav text-center">
 					    <Link to="/" className="navbar-item ms-3 Link">
 						INICIO
@@ -61,8 +59,7 @@ return (
 						ACERCA DE
 					    </Link>
 				    </ul>
-			    </div>
-				<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
+					<div id="buscar" className="col-xs-8 col-sm-12 col-md-4 col-lg-4 mt-2 move">
 				    <input type="text" onKeyUp={eventoEnter} value={input} onChange={cambios} ref={buscar} className="form-control ms-2" placeholder="Buscar juego..."/>
 					<i onClick={eventoClick} className="bi bi-search lupa mt-2 ml-3"/>
                 </div>
@@ -73,6 +70,7 @@ return (
 						{ carrito.length }
 						</span>
 					</Link>
+                </div>
 			    </div>
 			</div>
         </nav>
