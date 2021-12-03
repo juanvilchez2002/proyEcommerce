@@ -91,6 +91,7 @@ export default function ProductoId() {
                   }}
                 />
               </div>
+
               <div className="col-12 col-md-6">
                 <h4>{producto.nom_juego}</h4>
                 <h3>S/ {producto.precio_juego}</h3>

@@ -27,7 +27,7 @@ export default function Cards() {
     <div className="container d-flex justify-content-center flex-column align-items-center">
       <div className="row">
         {anadido.map((prod, i) => (
-          <div className="col-md-4" key={i}>
+          <div className="col-sm-10 col-md-6 col-lg-4" key={i}>
             <Producto prod={prod} />
           </div>
         ))}

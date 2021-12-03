@@ -41,7 +41,9 @@ export default function Busqueda() {
                         </div>
                     </div>
                 </Link>
-            )) : <h2 className="text-center text-secondary">No hay resultados</h2>
+            )) : <div className="mt-2" style={{width:"100vw",height:"50vh"}}>
+                <h2 className="text-center text-secondary fw-bold">No hay resultado</h2>
+            </div>
         }
             </div>
         </div>

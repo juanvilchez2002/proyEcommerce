@@ -1,14 +1,13 @@
-import { useRef, useContext } from "react"
+import { useRef, useContext, useState } from "react"
 import "../../style/header.css"
 import logo from "../../assets/img/logo.png"
 import { Link,useNavigate } from "react-router-dom"
-import { useState } from "react"
 
 import { CarritoContext } from "../../context/carrito";
 
 export default function Header() {
-	const { carrito, limpiarCarrito } = useContext(CarritoContext);
 
+	const { carrito, limpiarCarrito } = useContext(CarritoContext);
 	const [input,setInput] = useState("")
 	const buscar = useRef()
 	const navigate = useNavigate()
@@ -21,11 +20,15 @@ export default function Header() {
 
 	const eventoEnter = (e) => {
 		if(e.key === "Enter"){
-		navigate(`/${buscar.current.value}`)
+		navigate(`/search/${buscar.current.value}`)
 		setInput("")
 		window.location.reload()
 	}
 	}
+
+	const totalCarrito = carrito.reduce((total, prod) => {
+        return total + prod.cantidad;
+    }, 0);
 
 	const cambios = () => {
 		setInput(buscar.current.value)

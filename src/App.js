@@ -18,12 +18,15 @@ import AcercaDe from "./views/AcercaDe";
 import Carrito from "./views/carrito";
 import FinalizarCompra from "./views/finalizar-compra/index.jsx";
 import Footer from "./components/footer";
+import NotFound from "./views/NotFound";
+import { Link } from "react-router-dom";
 
 export default function App() {
   return (
     <CarritoContextProvider>
       <Router>
         <Header />
+
         <div className="app">
           <Routes>
             <Route path="/" element={<Inicio />} />
@@ -34,6 +37,7 @@ export default function App() {
             <Route path="/finalizar-compra" element={<FinalizarCompra />} />
             <Route path="/detalle/:id" element={<ProductoId />} />
             <Route path="/:busqueda" element={<Busqueda />} />
+            <Route path="/search/:busqueda" element={<Busqueda />} />
           </Routes>
         </div>
         <Footer />
