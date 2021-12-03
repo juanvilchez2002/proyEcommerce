@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import ReactDOM from "react-dom"
-import { Link } from "react-router-dom"
+import Swal from 'sweetalert2';
 
 import { toast } from "react-toastify";
 
@@ -42,6 +42,10 @@ export default function Carrito() {
         })
     }
 
+    const totalCarrito = carrito.reduce((total, prod) => {
+        return total + prod.cantidad;
+    }, 0);
+
     const createOrder = (data, actions) =>{
         return actions.order.create({
           purchase_units: [
@@ -55,14 +59,24 @@ export default function Carrito() {
     }
 
       const onApprove = (data, actions) => {
-        return actions.order.capture()
+        return actions.order.capture(ResetCarrito())
+    }
+
+    const ResetCarrito = async () => {
+        const accion = await Swal.fire({
+            icon: "success",
+            title: "Pago Exitoso",
+        });
+        if(accion.isConfirmed){
+            limpiarCarrito()
+        }
     }
 
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="col-12 pt-0">
-                    <h2 className="subtitulo-general">Carrito <span className="text-muted">(3 productos) </span></h2>
+                    <h2 className="subtitulo-general">Carrito <span className="text-muted">{`(${totalCarrito} productos)`}</span></h2>
 
                     {/* Producto */}
                     <section>
@@ -126,11 +140,7 @@ export default function Carrito() {
                                                 <span>{formatoAPrecio(subTotal)}</span>
                                             </p>
                                             <p className={`${styles.message}`}>El costo de despacho no está incluido en el precio</p>
-                                            {/* <Link to="/" className="btn btn-success w-100 mt-3"> */}
                                             <PayPalButton createOrder={(data, actions) => createOrder(data, actions)} onApprove={(data, actions) => onApprove(data, actions)}  />
-                                                {/* FINALIZAR COMPRA &nbsp;
-                                                <i class="fas fa-location-arrow"></i>
-                                            </Link> */}
                                         </div>
                                     </div>
                                 </div>
