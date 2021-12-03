@@ -19,3 +19,19 @@ img,i{
 .Link:hover{
     color:yellow;
 }
+@media (min-width:1050px){
+    #buscar{
+        margin-left: 10vw;
+    }
+    #links{
+        margin-left: 7vw;
+    }
+}
+@media (min-width:850px) and (max-width:1050px){
+    #buscar{
+        margin-left: 5vw;
+    }
+    #links{
+        margin-left: 3vw;
+    }
+}

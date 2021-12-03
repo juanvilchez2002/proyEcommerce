@@ -43,7 +43,7 @@ return (
 			    >
 				    <span className="navbar-toggler-icon" />
 			    </button>
-			    <div className="mt-2 col-xs-8 col-sm-8 col-md-5 col-lg-5 collapse navbar-collapse justify-content-center" id="links">
+			    <div className="mt-2 col-xs-8 col-sm-8 col-md-4 col-lg-4 collapse navbar-collapse" id="links">
 				    <ul className="navbar-nav text-center">
 					    <Link to="/" className="navbar-item ms-3 Link">
 						INICIO
@@ -58,15 +58,15 @@ return (
 						ACERCA DE
 					    </Link>
 				    </ul>
-			    </div>
-				<div className="col-xs-8 col-sm-12 col-md-3 col-lg-3 mt-2 move">
+					<div id="buscar" className="col-xs-8 col-sm-12 col-md-4 col-lg-4 mt-2 move">
 				    <input type="text" onKeyUp={eventoEnter} value={input} onChange={cambios} ref={buscar} className="form-control ms-2" placeholder="Buscar juego..."/>
 					<i onClick={eventoClick} className="bi bi-search lupa mt-2 ml-3"/>
-                </div>
-				<div className="d-flex col-xs-8 col-sm-12 col-md-1 col-lg-1 justify-content-center ms-2">
+                    </div>
+				    <div className="d-flex justify-content-center col-xs-8 col-sm-12 col-md-1 col-lg-1 ms-2">
 					<Link to="/carrito" className="navbar-item ms-3 Link">
 						<span className="badge bg-black text-warning"><i className="bi bi-cart3 text-white ms-3" style={{fontSize:"30px"}}/> {totalCarrito}</span>
 					</Link>
+			        </div>
 			    </div>
 			</div>
         </nav>

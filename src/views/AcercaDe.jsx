@@ -33,7 +33,7 @@ export default function AcercaDe() {
             <h2 className="text-center fw-bold mt-2">Nuestro Equipo</h2>
             <hr className="mt-4" />
             {developers.map(({imagen,nombre,descripcion},i) => (
-            <div className="d-flex justify-content-center m-2 col-sm-10 col-md-6 col-lg-5" style={{border:"1px solid black",borderRadius:"10px"}}>
+            <div className="d-flex justify-content-center my-2 ms-4 col-sm-10 col-md-6 col-lg-5" style={{border:"1px solid black",borderRadius:"10px"}}>
                 <img id="imagen-acercade" className="my-4 me-5" src={imagen} alt={nombre} style={{width:"150px",borderRadius:"100%"}} />
                 <div className="d-flex flex-column my-4 justify-content-center">
                 <h5 className="fw-bold">{nombre}</h5>
