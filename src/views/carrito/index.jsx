@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react'
+import ReactDOM from "react-dom"
 import { Link } from "react-router-dom"
 
 import { toast } from "react-toastify";
@@ -8,6 +9,8 @@ import { formatoAPrecio } from '../../utilidades/set-precio'
 import { CarritoContext } from "../../context/carrito";
 
 import styles from './styles.module.scss'
+
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Carrito() {
     const { carrito, limpiarCarrito } = useContext(CarritoContext);
@@ -37,6 +40,22 @@ export default function Carrito() {
             draggable: true,
             progress: undefined,
         })
+    }
+
+    const createOrder = (data, actions) =>{
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: subTotal,
+              },
+            },
+          ],
+        })
+    }
+
+      const onApprove = (data, actions) => {
+        return actions.order.capture()
     }
 
     return (
@@ -106,13 +125,12 @@ export default function Carrito() {
                                                 <span className="small text-muted">Sub-total productos</span>
                                                 <span>{formatoAPrecio(subTotal)}</span>
                                             </p>
-
                                             <p className={`${styles.message}`}>El costo de despacho no está incluido en el precio</p>
-
-                                            <Link to="/" className="btn btn-success w-100 mt-3">
-                                                FINALIZAR COMPRA &nbsp;
+                                            {/* <Link to="/" className="btn btn-success w-100 mt-3"> */}
+                                            <PayPalButton createOrder={(data, actions) => createOrder(data, actions)} onApprove={(data, actions) => onApprove(data, actions)}  />
+                                                {/* FINALIZAR COMPRA &nbsp;
                                                 <i class="fas fa-location-arrow"></i>
-                                            </Link>
+                                            </Link> */}
                                         </div>
                                     </div>
                                 </div>
