@@ -48,11 +48,11 @@ export default function VentasJuegosView() {
 
     //obtener detalle de Estado
     const getEstado = (idEstado)=>{
-        console.log(estado, idEstado)
         const estadoFil = estado.filter((estas)=>
             estas.id == parseInt(idEstado)
         )
-
+        //console.log(estadoFil[0].nombre)
+        
         //return estadoFil[0].nombre
     }
 
@@ -88,13 +88,12 @@ export default function VentasJuegosView() {
         <div className="container bg-light">         
 
             <div className="row">
-                <div className="col-sm-4 col-md-4">
-
+                <div className="col-xs-3 col-md-3 d-flex flex-column flex-wrap justify-content-center">
 
                 <h3 className="text-center mt-2">
                         Estados de Compra
                     </h3>
-                    <div className="d-flex flex-md-column  flex-sm-column jjustify-content-start">
+                    <div className="d-flex  flex-wrap flex-sm-column justify-content-start">
 
                         <button className="btn btn-dark mt-2 mb-2" onClick={()=>{
                             navigate("/admin")
@@ -128,17 +127,10 @@ export default function VentasJuegosView() {
                         
                     </div>
 
-                    <img 
-                        src={img1} 
-                        className="rounded mx-auto d-block"  
-                        alt="..."
-                        style={{
-                            width:"80%"
-                        }}
-                    /> 
+                    
 
                 </div>
-                <div className="col-sm-8 col-md-8">
+                <div className="col-xs-9 col-md-9 d-flex flex-column flex-wrap">
                     <table className="table table-hover table-borderless">
                         <thead className="text-center">
                             <tr>
@@ -146,7 +138,7 @@ export default function VentasJuegosView() {
                                     Comprador
                                 </th>
                                 <th>
-                                    Provincia
+                                    Departamento
                                 </th>
                                 <th>
                                     Monto Compra
@@ -160,14 +152,14 @@ export default function VentasJuegosView() {
                         {
                             ventas.map(
                                 (
-                                    {nombreCompleto, provincia, estado_id, total, id}, i)=>(
+                                    {nombreCompleto, departamento, estado_id, total, id}, i)=>(
                                 <tr key={i}>
                                     <td>
                                         {nombreCompleto}
                                     </td>
                                     <td>
                                         { 
-                                            provincia
+                                            departamento
                                         }
                                     </td>
                                     <td>

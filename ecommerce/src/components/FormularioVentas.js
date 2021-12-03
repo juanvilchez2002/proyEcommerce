@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { obtenerJuegoPorId } from "../services/ventasService";
-import {obtenerEstado, obtenerEstadoPorId} from "../services/estadoServices"
+import { Link, useParams } from "react-router-dom";
+import { obtenerJuegoPorId, editarVentaPorId } from "../services/ventasService";
+import {obtenerEstado, obtenerEstadoPorId} from "../services/estadoServices";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import EstadosVentas from "./EstadosVentas";
+import {useForm} from "react-hook-form";//useForm es un hook personalizado para manejar formularios
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 
 export default function FormularioVentas() {
 
@@ -23,34 +24,44 @@ export default function FormularioVentas() {
     })
 
     //estado actual de venta del pedido
-    const [estado, setEstado] = useState();
+    const [estado, setEstado] = useState("");
 
     //estados de venta
-    const [estadoP, setEstadoP] = useState([]);
+    const [estadoP, setEstadoP] = useState([]);    
 
     //usamos useParams para obtener el id de la 
     //venta a consultar
     const {id} = useParams();
 
+    //coordenadas
+    let coord=[0,0]
+
+    //
+    const navigate = useNavigate()
+
+    //manejando formulario    
+    const {register, handleSubmit} = useForm();
+    
     //consultadmos la venta por id
     const getVentas = async() =>{
         try {
             const ventaObt = await obtenerJuegoPorId(id);
             setValue(ventaObt);
+            console.log(ventaObt.estado_id)
             //todos los estados
             const estadoObt = await obtenerEstado();
             setEstadoP(estadoObt);
-            //console.log(estadoP)
-
+            coord = Array.from(ventaObt.coordenadas)
             //el estado de la venta
-            const estadoOb = await obtenerEstadoPorId(ventaObt.estado_id);            
-            setEstado(estadoOb.nombre);
-            //console.log(estado)
+            const { nombre} = await obtenerEstadoPorId(ventaObt.estado_id);   
+            setEstado(nombre)
+
         } catch (error) {
             console.log("error")
         }
+        
     }
-
+    
     //para calcular el monto total a pagar
     let total = 0;
 
@@ -60,7 +71,7 @@ export default function FormularioVentas() {
 
     //actualizar el estado de la compra
     const actualizarInput = (e)=>{
-        console.log(e, e.target.name, e.target.value);
+        //console.log(e, e.target.name, e.target.value);
         //usando el setValue para actualizar
         //pasamos un objeto y spread de value que
         //es un objeto
@@ -71,12 +82,39 @@ export default function FormularioVentas() {
         });
     }
 
+    //actualizar estado de compra
+    const manejarSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            //verificamos el valor de imagen
+            await editarVentaPorId(id, value);
+            const {nombre} = await obtenerEstadoPorId(value.estado_id)
+            await Swal.fire({
+                icon: "success",
+                title: "Éxito",
+                text: `Estado de Venta Actualizado a`,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const manejarSubmit1 = async (data) => {
+        console.log(data)
+    };
+    
+    const manejo = (e)=>{
+        e.preventDefault();
+        console.log("hola")
+    }
+
     useEffect(()=>{
         getVentas()
     },[])
 
     return (
         <div className="container">
+
             <div>
                 <h3>
 
@@ -90,39 +128,107 @@ export default function FormularioVentas() {
                                         </small>
                 </h3>
             </div>
-            <form >
+        
+            <form onSubmit={(e)=> {manejarSubmit(e);}}>
+                <div className="container d-flex">
+                    <div className="row row-cols-1"  style={{
+                        width:"70%"
+                    }}>    
+                        <div className="d-flex flex-wrap ">
+                            <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap ">
+
+                                    <label className="form-label">
+                                        Cliente: 
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control" 
+                                        name="nombreCompleto" 
+                                        value={value.nombreCompleto}
+                                        disabled
+                                    />
+                            </div>
+                            <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap ">
+                                    <label className="form-label">
+                                        Telf. Contacto: 
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control" 
+                                        name="telefono" 
+                                        value={value.telefono}
+                                        disabled
+                                    />
+                            </div>
+                            
+                        </div>
+                        <div className="d-flex flex-wrap">
+                            <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap">
+                                <label className="form-label">
+                                    Mail Contacto: 
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control" 
+                                    name="email" 
+                                    value={value.email}
+                                    disabled
+                                />
+                            </div>
+                            <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap">
+                                <label className="form-label">
+                                    Provincias: 
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control" 
+                                    name="departamento" 
+                                    value={value.departamento}
+                                    disabled
+                                />
+                            </div>                
+                        </div>
+                    <div className="d-flex flex-wrap">
+                        <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap">
+                            <label className="form-label">
+                                 Provincia: 
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control" 
+                                name="provincia" 
+                                value={value.provincia}
+                                disabled
+                            />
+                        </div>
+                        <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap">
+                            <label className="form-label">
+                                Direccion: 
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control" 
+                                name="direccion" 
+                                value={value.direccion}
+                                disabled
+                            />
+                        </div>                
+                    </div> 
+                </div>
+                <div className="row " style={{
+                        width:"30%"
+                    }}>
+                    
                 <div className="d-flex flex-wrap">
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
+                    <div className="m-2 col-md-4 col-sm-4 col-xs-4 d-flex flex-column flex-wrap"  style={{
+                        width:"100%"
+                    }}>
                             <label className="form-label">
-                                Cliente: 
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control" 
-                                name="nombreCompleto" 
-                                value={value.nombreCompleto}
-                                disabled
-                            />
-                    </div>
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
-                            <label className="form-label">
-                                Telefono de Contacto: 
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control" 
-                                name="telefono" 
-                                value={value.telefono}
-                                disabled
-                            />
-                    </div>
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
-                            <label className="form-label">
-                                Estado de la Compra: 
+                                Estado Compra: 
                             </label>
                             <select                            
                                 className="form-select"
-                                name="estado_id"
+                                {...register("estado_id")}
                                 value={value.estado_id}
                                 onChange={(e)=>{
                                     actualizarInput(e)
@@ -132,71 +238,57 @@ export default function FormularioVentas() {
                                 {
                                     estadoP.map((est,i)=>(
                                         <option value={est.id} key={i}>
-                                            {est.nombre}
+                                            {est.nombre
+                                            
+                                            }
                                         </option>
                                     ))
                                 }
                         
 
                             </select>
-                            
-                            
+                        </div>
+                    </div> 
+                    <div className="d-flex flex-wrap">
+                        <h4>
+                            Referencia:
+                        </h4>
+                        {/**
+                         <MapContainer 
+                                center={coord}
+                                zoom={15}
+                                style={
+                                   { height:'150px',
+                                     width:'200px'
+                                    }
+                                }
+                                scrollWheelZoom={true}
+                        >
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                    
+                                <Marker position={coord}/>
+                        </MapContainer>
 
-                    </div>
-                </div>
-                <div className="d-flex flex-wrap">
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
-                        <label className="form-label">
-                            Correo de Contacto: 
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control" 
-                            name="email" 
-                            value={value.email}
-                            disabled
-                        />
-                    </div>
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
-                        <label className="form-label">
-                            Provincias: 
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control" 
-                            name="departamento" 
-                            value={value.departamento}
-                            disabled
-                        />
-                    </div>                
-                </div>
-                <div className="d-flex flex-wrap">
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
-                        <label className="form-label">
-                            Provincia: 
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control" 
-                            name="provincia" 
-                            value={value.provincia}
-                            disabled
-                        />
-                    </div>
-                    <div className="m-2 col-md-3 d-flex flex-column flex-wrap">
-                        <label className="form-label">
-                            Direccion: 
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control" 
-                            name="direccion" 
-                            value={value.direccion}
-                            disabled
-                        />
-                    </div>                
-                </div>
 
+                         
+                         * */
+                         
+                        }
+                    </div>
+                    <div >
+                        
+                        <buttom className="btn btn-dark mt-2 m-1 btn-sm" onClick={()=>{
+                            navigate("/ventasJuegos")
+                        }}>
+                            Regresar
+                        </buttom>
+                    </div>
+                </div>
+                    
+                </div>                      
                 <div>
                     <h4 className="m-2">
                         Listado de Juegos por Comprar
@@ -243,7 +335,9 @@ export default function FormularioVentas() {
 
                 </div>
                 
-
+                <buttom className="btn btn-primary" type="submit">
+                            Actualizar Estado
+                </buttom>
             </form>
         </div>
     )

@@ -76,14 +76,14 @@ export default function ListaProductosView() {
         <div className="container bg-light">         
 
             <div className="row">
-                <div className="col-sm-3 col-md-3 ">
+                <div className="col-xs-3 col-md-3 d-flex flex-column flex-wrap">
                     {
                         //realizamos los filtros de categorias
                     }
                     <h4 className="text-center mt-2 sticky-top">
                         Categorias de Juegos
                     </h4>
-                    <div className="d-flex flex-md-column  flex-sm-column jjustify-content-start sticky-top">
+                    <div className="d-flex flex-md-column flex-wrap flex-sm-column justify-content-start sticky-top">
                         <button className="btn btn-dark mt-2 mb-2" onClick={()=>{
                             navigate("/admin")
                         }}>
@@ -113,7 +113,7 @@ export default function ListaProductosView() {
                     </div>
 
                 </div>
-                <div className="col-sm-9 col-md-9 ">
+                <div className="col-xs-9 col-md-9 d-flex flex-column align-items-center">
                     <table className="table table-hover table-borderless ">
                         <thead >
                             <tr className="text-center sticky-top">

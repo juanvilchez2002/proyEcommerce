@@ -30,7 +30,23 @@ const obtenerJuegoPorId = async(id) =>{
     }
 }
 
+const editarVentaPorId = async (id, objVenta) =>{
+    try {
+        //para actualizar datos es necesario
+        //usar las cabeceras
+        const headers = {
+            "Content-Type": "application/json",
+        };     
+        //envio la actualización a mockapi   
+        await axios.put(`${URL}/${id}`, objVenta, {headers});
+        return;//envia un revolve
+    } catch (error) {        
+        throw error;
+    }
+}
+
 export {
     obtenerVentas,
-    obtenerJuegoPorId
+    obtenerJuegoPorId,
+    editarVentaPorId
 }
