@@ -140,7 +140,11 @@ export default function FormularioJuego({value, actualizarInput, manejarSubmit, 
                         }}
                     />
                 </div>
-                    
+                <div>
+                <img
+                    src={ruta}
+                />
+                </div>    
                 
 
                     <button 

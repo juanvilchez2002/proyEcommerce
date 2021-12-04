@@ -96,7 +96,7 @@ export default function RegistrarJuegosView() {
         imagen = e.target.files[0];
         console.log(imagen.files);
         ruta1 = imagen.name
-        ruta = `../assets/${ruta1}`
+        ruta = URL.createObjectURL(imagen)
         console.log(ruta)
         
         console.log(ruta1)
