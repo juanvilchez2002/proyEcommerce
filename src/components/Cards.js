@@ -3,6 +3,8 @@ import { obtenerProductosPorPagina } from "../services/Services";
 
 import Producto from "./producto";
 
+
+
 export default function Cards() {
 
   const [anadido,setAnadido] = useState([])
