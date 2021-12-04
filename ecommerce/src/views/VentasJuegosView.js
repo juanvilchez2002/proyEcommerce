@@ -1,7 +1,7 @@
 
 import imagen1 from "../assets/last_2.png"
 import img1 from "../assets/ventas_gato.JPG"
-import { obtenerVentas } from "../services/ventasService"
+import { obtenerVentas, editarVentaPorId } from "../services/ventasService"
 import { obtenerEstado } from "../services/estadoServices";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -88,7 +88,7 @@ export default function VentasJuegosView() {
         <div className="container bg-light">         
 
             <div className="row">
-                <div className="col-xs-3 col-md-3 d-flex flex-column flex-wrap justify-content-center">
+                <div className="col-xs-3 col-md-3 ">
 
                 <h3 className="text-center mt-2">
                         Estados de Compra
@@ -144,7 +144,7 @@ export default function VentasJuegosView() {
                                     Monto Compra
                                 </th>
                                 <th>
-                                    Procesos
+                                    Detalle
                                 </th>
                             </tr>
                         </thead>

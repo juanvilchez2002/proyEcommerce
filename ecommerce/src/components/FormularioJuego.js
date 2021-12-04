@@ -1,7 +1,9 @@
 //componente
 import { useRef } from "react";
+import imagen1 from "../assets/halo5.jpg"
 
-export default function FormularioJuego({value, actualizarInput, manejarSubmit, manejarImagen, categorias, ruta}) {
+export default function FormularioJuego({ 
+    value, actualizarInput, manejarSubmit, manejarImagen, categorias, rutaImg, getRegresar}) {
     
     //es una referencia
     //va a ser como trabajar como un id interno de 
@@ -15,9 +17,31 @@ export default function FormularioJuego({value, actualizarInput, manejarSubmit, 
         pero se creara un objeto para manejar todos 
         los input
     */
-        let xxx = "http://localhost:3000/1e3ef1a6-6a53-4977-83b0-1ea5700fd015"
     return (
         <div>
+            {
+                    /**
+                     * para mostrar el banner de la pagina
+                     */
+            }
+            <div
+                
+
+                className="title-md-product py-4 mb-3 text-center"
+                style={{
+                    backgroundImage: `url(${imagen1})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    backgroundRepeat:"no-repeat"
+                }}
+            >
+                <h2 className="fw-bold container " style={{color:"black"}}>
+                    {/* si categoria existe, pregunta por la propiedad nombre */}
+                                        {
+                                            rutaImg?"Editar Juegos":"Registrar Juegos"
+                                        }
+                </h2>
+            </div>
             {/**
              *  el evento que envia los datos
              */}
@@ -89,7 +113,7 @@ export default function FormularioJuego({value, actualizarInput, manejarSubmit, 
                         }
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-1">
                     <label className="form-label">
                         Categoria:
                     </label>
@@ -115,7 +139,7 @@ export default function FormularioJuego({value, actualizarInput, manejarSubmit, 
                 {/**
                  * para subir img
                  */}
-                <div className="mb-3">
+                <div className="mb-1">
                     <label className="form-label">
                         Imagen:
                     </label>
@@ -140,19 +164,35 @@ export default function FormularioJuego({value, actualizarInput, manejarSubmit, 
                         }}
                     />
                 </div>
-                <div>
-                <img
-                    src={ruta}
-                />
+                <div className="card" >
+                    {
+                        rutaImg&&<div>
+                        <h6 className="title-card">
+                            Vista Previa:
+                        </h6>
+                        <img
+                            src={rutaImg}
+                            alt="Imagen previa"
+                            className="img-fluid"
+                        />
+                    </div>
+                    }
                 </div>    
-                
-
+                <div className="d-flex justify-content-around">
                     <button 
-                        className="btn btn-primary"
+                        className="btn btn-primary btn-lg"
                         type="submit"
                     >
                         Guardar
                     </button>
+                    <button 
+                        className="btn btn-dark btn-lg"
+                        onClick={getRegresar}
+                    >
+                        Regresar
+                    </button>
+                </div>
+                    
             </form>
         </div>
     )

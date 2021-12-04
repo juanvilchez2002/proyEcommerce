@@ -19,7 +19,7 @@ const obtenerVentas = async() =>{
 
 //obtener las ventas por Id y poder actualizar
 //el estado de ventas
-const obtenerJuegoPorId = async(id) =>{
+const obtenerVentaPorId = async(id) =>{
     try {
         //concatenamos la URL con el id para obtener
         //el producto
@@ -47,6 +47,6 @@ const editarVentaPorId = async (id, objVenta) =>{
 
 export {
     obtenerVentas,
-    obtenerJuegoPorId,
+    obtenerVentaPorId,
     editarVentaPorId
 }

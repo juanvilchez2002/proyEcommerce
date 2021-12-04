@@ -38,6 +38,18 @@ const registrarJuego = async(nuevoProducto)=>{
     }
 }
 
+//obteniendo un juego por id
+const obtenerJuegoPorId = async(id) =>{
+    try {
+        //concatenamos la URL con el id para obtener
+        //el producto
+        const {data} = await axios.get(`${URL}/${id}`)
+        return data
+    } catch (error) {
+        throw error;
+    }
+}
+
 //editarJuegos
 const editarJuegosPorId = async (id, objJuego) =>{
     try {
@@ -54,7 +66,6 @@ const editarJuegosPorId = async (id, objJuego) =>{
     }
 }
 
-//subir imagen
 //subir una imagen
 const subirImagen = (imagen) => {
     return new Promise((resolve, reject) => {
@@ -78,6 +89,16 @@ const subirImagen = (imagen) => {
     });
 };
 
+//función para eliminar juego
+const eliminarJuego = async (id) =>{
+    try {
+        await axios.delete(`${URL}/${id}`)
+        return "Producto Eliminado"
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
-    obtenerJuegos, subirImagen, editarJuegosPorId, registrarJuego
+    obtenerJuegos, subirImagen,obtenerJuegoPorId, editarJuegosPorId, registrarJuego, eliminarJuego
 }

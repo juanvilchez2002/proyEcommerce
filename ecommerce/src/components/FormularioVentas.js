@@ -1,116 +1,26 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { obtenerJuegoPorId, editarVentaPorId } from "../services/ventasService";
-import {obtenerEstado, obtenerEstadoPorId} from "../services/estadoServices";
+//componente
+//import { useRef } from "react";
 import { useNavigate } from "react-router";
-import Swal from "sweetalert2";
-import {useForm} from "react-hook-form";//useForm es un hook personalizado para manejar formularios
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+//import Swal from "sweetalert2";
+//import {useForm} from "react-hook-form";//useForm es un hook personalizado para manejar formularios
+//import EditarVentaJuegosView from "../views/EditarVentaJuegosView";
 
-export default function FormularioVentas() {
+export default function FormularioVentas({value, actualizarInput, manejarSubmit, estadoP, estado, getRegresar}) {
 
-    //se crea un estado donde se almacenara los datos de venta
-    const [value, setValue]=useState({
-        nombreCompleto: "",
-        telefono: "",
-        email: "",
-        provincia: "",
-        distrito: "",
-        direccion: "",
-        coordenadas: [],
-        juegos: [],
-        total: 0,
-        estado_id: ""
-    })
-
-    //estado actual de venta del pedido
-    const [estado, setEstado] = useState("");
-
-    //estados de venta
-    const [estadoP, setEstadoP] = useState([]);    
-
-    //usamos useParams para obtener el id de la 
-    //venta a consultar
-    const {id} = useParams();
-
-    //coordenadas
-    let coord=[0,0]
-
+   
     //
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    //manejando formulario    
-    const {register, handleSubmit} = useForm();
+    console.log(value);
     
-    //consultadmos la venta por id
-    const getVentas = async() =>{
-        try {
-            const ventaObt = await obtenerJuegoPorId(id);
-            setValue(ventaObt);
-            console.log(ventaObt.estado_id)
-            //todos los estados
-            const estadoObt = await obtenerEstado();
-            setEstadoP(estadoObt);
-            coord = Array.from(ventaObt.coordenadas)
-            //el estado de la venta
-            const { nombre} = await obtenerEstadoPorId(ventaObt.estado_id);   
-            setEstado(nombre)
 
-        } catch (error) {
-            console.log("error")
-        }
-        
-    }
-    
-    //para calcular el monto total a pagar
     let total = 0;
 
     total = value["juegos"].reduce((acum, prod) => {
         return acum + prod.cantidad*prod.precio
     },0)
 
-    //actualizar el estado de la compra
-    const actualizarInput = (e)=>{
-        //console.log(e, e.target.name, e.target.value);
-        //usando el setValue para actualizar
-        //pasamos un objeto y spread de value que
-        //es un objeto
-        setValue({
-            ...value,
-            //pasamos el nombre y el valor
-            [e.target.name]: e.target.value,
-        });
-    }
 
-    //actualizar estado de compra
-    const manejarSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            //verificamos el valor de imagen
-            await editarVentaPorId(id, value);
-            const {nombre} = await obtenerEstadoPorId(value.estado_id)
-            await Swal.fire({
-                icon: "success",
-                title: "Éxito",
-                text: `Estado de Venta Actualizado a`,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const manejarSubmit1 = async (data) => {
-        console.log(data)
-    };
-    
-    const manejo = (e)=>{
-        e.preventDefault();
-        console.log("hola")
-    }
-
-    useEffect(()=>{
-        getVentas()
-    },[])
 
     return (
         <div className="container">
@@ -129,7 +39,9 @@ export default function FormularioVentas() {
                 </h3>
             </div>
         
-            <form onSubmit={(e)=> {manejarSubmit(e);}}>
+            <form onSubmit={ (e) => {
+                manejarSubmit(e)
+            }}>
                 <div className="container d-flex">
                     <div className="row row-cols-1"  style={{
                         width:"70%"
@@ -228,8 +140,8 @@ export default function FormularioVentas() {
                             </label>
                             <select                            
                                 className="form-select"
-                                {...register("estado_id")}
                                 value={value.estado_id}
+                                name="estado_id"
                                 onChange={(e)=>{
                                     actualizarInput(e)
                                 }}
@@ -278,18 +190,27 @@ export default function FormularioVentas() {
                          
                         }
                     </div>
-                    <div >
+                    
+                </div>
+                    
+                </div>                      
+                
+                
+                
+                <div >
                         
-                        <buttom className="btn btn-dark mt-2 m-1 btn-sm" onClick={()=>{
+                        <buttom className="btn btn-dark mt-2 m-1" onClick={()=>{
                             navigate("/ventasJuegos")
                         }}>
                             Regresar
                         </buttom>
+                        <buttom className="btn btn-primary mt-2 m-1" type="submit">
+                            Actualizar Estado
+                    </buttom>
                     </div>
-                </div>
-                    
-                </div>                      
-                <div>
+            </form>
+
+            <div>
                     <h4 className="m-2">
                         Listado de Juegos por Comprar
                     </h4>
@@ -334,11 +255,6 @@ export default function FormularioVentas() {
                     </ul>
 
                 </div>
-                
-                <buttom className="btn btn-primary" type="submit">
-                            Actualizar Estado
-                </buttom>
-            </form>
         </div>
     )
 }

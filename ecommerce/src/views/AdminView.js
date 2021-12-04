@@ -1,17 +1,35 @@
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function AdminView() {
 
     const navigate = useNavigate()
 
-    //
+    //para ir al listado de juegos
     const listadoJuego = ()=>{
         navigate("/listajuegos")
     }
 
-    //
+    //para ir al seguimiento de ventas
     const listadoVentas = ()=>{
         navigate("/ventasJuegos")
+    }
+
+    //para ir a registrar un nuevo juego
+    const registrojuego = ()=>{
+        navigate("/registrarJuego")
+    }
+
+    const salirAdmin = () =>{
+        
+            Swal.fire({
+                icon: "info",
+                title: "Saliendo de Administrador",
+                text: "Regrese pronto",
+                timer:1000
+            });
+            navigate("/login")
+        
     }
 
     return (
@@ -43,9 +61,16 @@ export default function AdminView() {
                         </div>
                         
                         <div className='col-sm-6'>
-                            <button className='btn-lg' style={{
-                            width:"200px"
-                        }}>
+                            <button 
+                                className='btn-lg' 
+                                style={{
+                                    width:"200px"
+                                }}
+                                 
+                                onClick={
+                                    registrojuego
+                                }
+                            >
                                 Registrar Juegos
                             </button>
                         </div>
@@ -68,9 +93,16 @@ export default function AdminView() {
                         </div>
                         
                         <div className='col-sm-6'>
-                            <button className='btn-lg btn-dark' style={{
-                            width:"200px"
-                        }}>
+                            <button 
+                                className='btn-lg btn-dark'
+                                style={{
+                                    width:"200px"
+                                }}
+                                 
+                                onClick={
+                                    salirAdmin
+                                }
+                            >
                                 Salir
                             </button>
                         </div>

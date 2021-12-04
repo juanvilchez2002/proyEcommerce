@@ -1,9 +1,10 @@
 
 import imagen1 from "../assets/halo5.jpg"
-import { obtenerJuegos } from "../services/juegosServices"
+import { obtenerJuegos, eliminarJuego } from "../services/juegosServices"
 import { obtenerCategorias } from "../services/categoriaServices";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function ListaProductosView() {
 
@@ -41,6 +42,34 @@ export default function ListaProductosView() {
         )
         
         setJuego(productosFiltrados);
+    }
+
+    //usamos esta función para mostrar los productos que quedan despues de elimnar
+    const verificarEliminar = async(id) =>{
+        const respuesta = await Swal.fire({
+            icon:"warning",
+            title:"¿Desea eliminar el Juego?",
+            text:"Recuerde que esta acción es irreversible.",
+            showConfirmButton:true,
+            showDenyButton:true,
+            confirmButtonText:"Si, Eliminar",
+            denyButtonText:"No, Cancelar",
+        });
+        //verificando su el usuario ha confirmado
+        //para eliminar el juego
+        if(respuesta.isConfirmed){
+            try {
+                await eliminarJuego(id);
+                Swal.fire({
+                    icon:"success",
+                    title: "Juego Eliminado¡¡"
+                })
+                //actualizamos la lista de productos
+                getDatos();
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     //para cargarlos una vez que se inicialice la pagina
@@ -156,7 +185,7 @@ export default function ListaProductosView() {
                                     >
                                         <Link 
                                             className="btn btn-info me-2" 
-                                            to={`/editarproducto/${id}`}
+                                            to={`/editarJuego/${id}`}
                                     >
                                             Editar
                                         </Link>
@@ -164,7 +193,7 @@ export default function ListaProductosView() {
                                             className="btn btn-danger"
                                             onClick={
                                                 ()=>{
-                                                    //verificarEliminar(id);
+                                                    verificarEliminar(id);
                                                 }
                                             }
                                         >

@@ -7,7 +7,9 @@ import ListaJuegosView from "./views/ListaJuegosView";
 import Login from "./components/Login";
 import AdminView from "./views/AdminView";
 import FormularioVentas from "./components/FormularioVentas";
-import RegistrarJuegosView from "./views/RegistrarJuegosView"
+import RegistrarJuegosView from "./views/RegistrarJuegosView";
+import EditarJuegosView from "./views/EditarJuegosView";
+import EditarVentaJuegosView from "./views/EditarVentaJuegosView"
 
 function App() {
   return (
@@ -26,9 +28,12 @@ function App() {
       <Route path="/login" element={<Login/>}/>     
       <Route path="/admin" element={<AdminView/>}/> 
       <Route path="/registrarJuego" element={<RegistrarJuegosView/>} />  
+      
+      <Route path="/editarJuego/:id" element={<EditarJuegosView/>}/>
+      
       <Route path="/listajuegos" element={<ListaJuegosView/>}/>            
       <Route path="/ventasJuegos" element={<VentasJuegosView/>}/>       
-      <Route path="/editarventas/:id" element={<FormularioVentas/>}/>
+      <Route path="/editarventas/:id" element={<EditarVentaJuegosView/>}/>
     </Routes>
   </Routers>
         

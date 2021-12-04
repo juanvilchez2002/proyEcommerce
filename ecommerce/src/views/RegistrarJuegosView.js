@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import FormularioJuego from "../components/FormularioJuego";
 import {useNavigate} from "react-router-dom"
 import { registrarJuego, subirImagen } from "../services/juegosServices";
 import { obtenerCategorias } from "../services/categoriaServices";
+import FormularioJuego from "../components/FormularioJuego";
 import Swal from "sweetalert2"
 
 //basicamente es una ariable global que no
@@ -26,6 +26,9 @@ export default function RegistrarJuegosView() {
 
     //estado de categoria
     const [categorias, setCategorias] = useState([])
+
+    //creado un estado para la imagen
+    const [rutaImg, setRutaImg] = useState(null);
 
     //instanciamos useNavigate
     const navigate = useNavigate();
@@ -77,10 +80,7 @@ export default function RegistrarJuegosView() {
                 timer:2000
               })
 
-            //despues de crear el producto se hace
-            //un navigate a la ListaProductoView
-            //home
-            navigate("/");
+           
 
         } catch (error) {
             console.log(error);
@@ -90,16 +90,22 @@ export default function RegistrarJuegosView() {
 
     //funcion que maneja la imgane
     const manejarImagen = (e) =>{
-        let reader = new FileReader();
         e.preventDefault();
         console.log(e.target.name);
         imagen = e.target.files[0];
-        console.log(imagen.files);
-        ruta1 = imagen.name
-        ruta = URL.createObjectURL(imagen)
+        //console.log(imagen.files);
+        //ruta1 = imagen.name
+        ruta = URL.createObjectURL(e.target.files[0])
+        setRutaImg(URL.createObjectURL(e.target.files[0]))
         console.log(ruta)
-        
-        console.log(ruta1)
+    }
+
+
+    const getRegresar = ()=>{
+        //despues de crear el producto se hace
+        //un navigate a la ListaProductoView
+        //home
+        navigate("/admin");
     }
 
     //cargamos las categorias al cargar la pagina
@@ -119,17 +125,20 @@ export default function RegistrarJuegosView() {
 
 
     return (
-        <div className="container col-7">
+        <div className="bg-dark">
+            <div className="container col-md-6 bg-light">
             
-                    <FormularioJuego 
-                        value={value} 
-                        actualizarInput={actualizarInput}
-                        manejarSubmit={manejarSubmit} 
-                        manejarImagen={manejarImagen}
-                        categorias={categorias}
-                        ruta={ruta}
-                    />
+            <FormularioJuego 
+                value={value} 
+                actualizarInput={actualizarInput}
+                manejarSubmit={manejarSubmit} 
+                manejarImagen={manejarImagen}
+                categorias={categorias}
+                rutaImg={rutaImg}
+                getRegresar={getRegresar}
+            />
 
+            </div>
         </div>
     )
 }
