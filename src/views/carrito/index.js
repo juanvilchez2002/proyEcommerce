@@ -1,7 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 
 import { toast } from "react-toastify";
 
@@ -10,8 +8,6 @@ import { formatoAPrecio } from "../../utilidades/set-precio";
 import { CarritoContext } from "../../context/carrito";
 
 import styles from "./styles.module.scss";
-
-const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function Carrito() {
   const { carrito, limpiarCarrito } = useContext(CarritoContext);
@@ -41,32 +37,6 @@ export default function Carrito() {
       draggable: true,
       progress: undefined,
     });
-  };
-
-  const createOrder = (data, actions) => {
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            value: subTotal,
-          },
-        },
-      ],
-    });
-  };
-
-  const onApprove = (data, actions) => {
-    return actions.order.capture(ResetCarrito());
-  };
-
-  const ResetCarrito = async () => {
-    const accion = await Swal.fire({
-      icon: "success",
-      title: "Pago Exitoso",
-    });
-    if (accion.isConfirmed) {
-      limpiarCarrito();
-    }
   };
 
   return (
@@ -199,22 +169,13 @@ export default function Carrito() {
                           El costo de despacho no está incluido en el precio
                         </p>
 
-                        {/* <Link
+                        <Link
                           to="/finalizar-compra"
                           className="btn btn-success w-100 mt-3"
                         >
                           FINALIZAR COMPRA &nbsp;
                           <i class="fas fa-location-arrow"></i>
-                        </Link> */}
-
-                        <PayPalButton
-                          createOrder={(data, actions) =>
-                            createOrder(data, actions)
-                          }
-                          onApprove={(data, actions) =>
-                            onApprove(data, actions)
-                          }
-                        />
+                        </Link>
                       </div>
                     </div>
                   </div>

@@ -1,20 +1,62 @@
 import React, { useEffect, useContext, useState } from 'react'
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom"
 
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 import { formatoAPrecio } from '../../utilidades/set-precio'
 
 import { CarritoContext } from "../../context/carrito";
+import { crearPedido } from '../../services/Services'
 
 import styles from './styles.module.scss'
+
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function FinalizarCompra() {
     const { carrito, limpiarCarrito } = useContext(CarritoContext);
     const [subTotal, setSubTotal] = useState(0)
     const [user, setUser] = useState(true)
+    const [loading, setLoading] = useState(false)
+
+    const [form, setForm] = useState({
+        nombreCompleto: "",
+        telefono: "",
+        email: "",
+        departamento: "",
+        provincia: "",
+        distrito: "",
+        direccion: "",
+        nroTarjeta: "",
+        fechaVencimiento: "",
+        ccv: ""
+    })
+
+    const actualizarInput = (e) => {
+        setForm({
+            ...form, //cogiendo el estado de value, spreadoperator
+            [e.target.name]: e.target.value,
+        });
+    }
  
     const { eliminarProducto } = useContext(CarritoContext);
+
+    const createOrder = (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: subTotal,
+              },
+            },
+          ],
+        });
+      };
+    
+    const onApprove = (data, actions) => {
+        return actions.order.capture(ResetCarrito());
+    };
 
     useEffect(() => {
         let result = 0
@@ -40,28 +82,105 @@ export default function FinalizarCompra() {
         })
     }
 
+    const ResetCarrito = async () => {
+        const accion = await Swal.fire({
+            icon: "success",
+            title: "Pago Exitoso",
+        });
+        if (accion.isConfirmed) {
+            limpiarCarrito();
+        }
+    };
+
+    const submit = async e => {
+        e.preventDefault()
+
+        setLoading(true)
+
+        let data = {
+            ...form
+        }
+
+        // Organizar carrito
+        let carritoAEnviar = carrito.map(item => {
+            return {
+                nombre: item.producto.nom_juego,
+                precio: item.producto.precio_juego,
+                cantidad: item.cantidad
+            }
+        })
+
+        data.juegos = carritoAEnviar
+        data.total = subTotal
+        data.estado_id = "1"
+        data.coordenadas = [-12.149882, -76.99093]
+
+        // Eliminar campos innecesarios
+        delete data.nroTarjeta
+        delete data.fechaVencimiento
+        delete data.ccv
+
+        setTimeout(async () => {
+            const resultado = await crearPedido(data)
+
+            if(resultado) {
+                limpiarCarrito();
+
+                setForm({
+                    nombreCompleto: "",
+                    telefono: "",
+                    email: "",
+                    departamento: "",
+                    provincia: "",
+                    distrito: "",
+                    direccion: "",
+                    nroTarjeta: "",
+                    fechaVencimiento: "",
+                    ccv: ""
+                })
+
+                Swal.fire(
+                    'Compra exitosa!',
+                    'Su pedido se ha procesado con éxito',
+                    'success'
+                )
+            } else {
+                Swal.fire(
+                    'Ups! Ocurrió un error',
+                    'Al parecer hubo un error al procesar la compra, por favor inténtelo nuevamente',
+                    'success'
+                )
+            }
+
+            setLoading(false)
+        }, 2000)
+    }
+
     return (
-        <div className="container mt-5">
+        <div className="container my-5">
             <div className="row">
                 {carrito.length ? (
-                    <form className="col-12">
+                    <form className="col-12" onSubmit={e => submit(e)}>
                         <div className="row">
-                        <div className="col-4">
+                        <div className="col-md-4">
                             <h2 className="subtitulo-general mt-3">Finalizar compra</h2>
                             {user ? (
                                 <section>
                                     <p className="text-muted">Datos de contacto</p>
-                                    <div className="form-group mb-3">
-                                            <input type="email" id="email" name="email" required placeholder="Correo electrónico" className="form-control py-3" />
+                                        <div className="form-group mb-3">
+                                            <input type="text" id="nombreCompleto" name="nombreCompleto" required placeholder="Nombre completo" value={form.nombreCompleto} className="form-control py-3" onChange={(e) => {actualizarInput(e)}} />
+                                        </div>
+                                        <div className="form-group mb-3">
+                                            <input type="email" id="email" name="email" required placeholder="Correo electrónico" value={form.email} className="form-control py-3" onChange={(e) => {actualizarInput(e)}} />
                                         </div>
 
                                         <div className="form-group mb-3">
-                                            <input type="number" id="celular" name="celular" required placeholder="Celular" className="form-control py-3" />
+                                            <input type="number" id="telefono" name="telefono" required placeholder="Celular" className="form-control py-3" value={form.telefono} onChange={(e) => {actualizarInput(e)}} />
                                         </div>
 
-                                        <div className="form-group mb-3">
+                                        {/* <div className="form-group mb-3">
                                             <textarea id="observaciones" name="observaciones" required placeholder="Observaciones" className="form-control"></textarea>
-                                        </div>
+                                        </div> */}
                                 </section>) : (<p>Debe iniciar sesión para continuar finalizar su compra</p>)}
                             </div>
                             <div className="col-md-4">
@@ -69,19 +188,19 @@ export default function FinalizarCompra() {
                                 <section className="mt-5">
                                     <p className="text-muted">Dirección de entrega</p>
                                     <div className="form-group mb-3">
-                                            <input type="text" id="departamento" name="departamento" required placeholder="Departamento" className="form-control py-3" />
+                                            <input type="text" id="departamento" name="departamento" required placeholder="Departamento" className="form-control py-3" value={form.departamento} onChange={(e) => {actualizarInput(e)}} />
                                         </div>
 
                                         <div className="form-group mb-3">
-                                            <input type="text" id="provincia" name="provincia" required placeholder="Provincia" className="form-control py-3" />
+                                            <input type="text" id="provincia" name="provincia" required placeholder="Provincia" className="form-control py-3" value={form.provincia} onChange={(e) => {actualizarInput(e)}} />
                                         </div>
 
                                         <div className="form-group mb-3">
-                                            <input type="text" id="distrito" name="distrito" required placeholder="Distrito" className="form-control py-3" />
+                                            <input type="text" id="distrito" name="distrito" required placeholder="Distrito" className="form-control py-3" value={form.distrito} onChange={(e) => {actualizarInput(e)}} />
                                         </div>
 
                                         <div className="form-group mb-3">
-                                            <input type="text" id="direccion" name="direccion" required placeholder="Dirección de envío" className="form-control py-3" />
+                                            <input type="text" id="direccion" name="direccion" required placeholder="Dirección de envío" className="form-control py-3" value={form.direccion} onChange={(e) => {actualizarInput(e)}} />
                                         </div>
                                 </section>) : (<p>Debe iniciar sesión para continuar finalizar su compra</p>)}
                             </div>
@@ -89,28 +208,40 @@ export default function FinalizarCompra() {
                             <div className="col-md-4">
                                 {user ? (
                                 <section className="mt-5">
-                                    <p className="text-muted">Datos de pago</p>
+                                    <div className="d-flex align-items-center">
+                                        <p className="text-muted m-0 mr-1">Datos de pago</p>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" width="40px" className="d-inline-block mr-1" />
+                                        <img src="https://cdn-icons.flaticon.com/png/512/177/premium/177025.png?token=exp=1638588983~hmac=203e22c2aeb23b93ce3a9ec278132f2f" width="40px" />
+                                    </div>
                                     <section>
+                                    {/* <PayPalButton
+                                        createOrder={(data, actions) =>
+                                            createOrder(data, actions)
+                                        }
+                                        onApprove={(data, actions) =>
+                                            onApprove(data, actions)
+                                        }
+                                        /> */}
                                         <div className="form-group mb-3">
-                                            <input type="number" id="nroTarjeta" name="nroTarjeta" required placeholder="Número de tarjeta" className="form-control py-3" />
+                                            <input type="number" id="nroTarjeta" name="nroTarjeta" required placeholder="Número de tarjeta" className="form-control py-3" value={form.nroTarjeta} onChange={(e) => {actualizarInput(e)}} />
                                         </div>
 
                                         <div className="row">
                                             <div className="col-6">
                                                 <div className="form-group mb-3">
-                                                    <input type="text" id="fechaVencimiento" name="fechaVencimiento" required placeholder="F. vencimiento" className="form-control py-3" />
+                                                    <input type="text" id="fechaVencimiento" name="fechaVencimiento" required placeholder="F.V. (MM/AA)" className="form-control py-3" value={form.fechaVencimiento} onChange={(e) => {actualizarInput(e)}} />
                                                 </div>
                                             </div>
 
                                             <div className="col-6">
                                                 <div className="form-group mb-3">
-                                                    <input type="text" id="ccv" name="ccv" required placeholder="CCV" className="form-control py-3" />
+                                                    <input type="text" id="ccv" name="ccv" required placeholder="CCV" className="form-control py-3" value={form.ccv} onChange={(e) => {actualizarInput(e)}} />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <button type="submit" className="btn btn-success btn-block w-100 py-3">
-                                            Finalizar &nbsp;
+                                        <button type="submit" disabled={loading} className="btn btn-success btn-block w-100 py-3">
+                                            {loading ? 'Creando pedido' : 'Finalizar'} &nbsp;
                                             <i class="fas fa-location-arrow"></i>
                                         </button>
                                     </section>
