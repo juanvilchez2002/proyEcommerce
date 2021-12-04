@@ -60,6 +60,12 @@ export default function ProductoId() {
     anadirACarrito(nuevoProducto);
   };
 
+  const whatsapp = () => {
+    let texto = `Hola Palace Game estoy interesado en el juego ${producto.nom_juego}`;
+    let url = `https://api.whatsapp.com/send?phone=${+51964711527}&text=${texto}`;
+    window.open(url);
+  };
+
   useEffect(() => {
     getProducto();
   }, []);
@@ -123,6 +129,20 @@ export default function ProductoId() {
                   >
                     <i className="fas fa-cart-plus"></i> Añadir a carrito
                   </a>
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    className="whatsapp"
+                    onClick={() => whatsapp()}
+                  >
+                    Consultar
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+                      width="20px"
+                    />
+                  </button>
                 </div>
               </div>
             </>

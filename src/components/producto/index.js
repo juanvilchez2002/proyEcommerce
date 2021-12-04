@@ -58,9 +58,7 @@ export default function Producto({ prod }) {
           >
             COMPRAR
           </a>
-          <h3 className="ms-4 text-secondary">
-            S/ {prod.precio_juego}.00
-          </h3>
+          <h3 className="ms-4 text-secondary">S/ {prod.precio_juego}.00</h3>
         </div>
       </div>
     </Link>
