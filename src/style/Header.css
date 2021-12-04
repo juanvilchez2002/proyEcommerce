@@ -1,0 +1,17 @@
+body{
+    background-color: rgba(0, 0, 0, 0.72);
+}
+.nav{
+    background-color: black;
+}
+.move{
+    position: relative;
+}
+.lupa{
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+i{
+    cursor: pointer;
+}
